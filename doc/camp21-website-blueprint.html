@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Camp 21 — Website Blueprint & Asset Map</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --navy:#081B44; --teal:#14B8A6; --orange:#FF6A3D;
+  --gold:#C9922A; --gold-lt:#E8C96A; --cream:#F5EDD8;
+  --maroon:#7A1530; --terracotta:#C0522A; --ochre:#D4821A;
+  --sage:#4A7C6F; --sand:#DDD0B4; --ink:#1C1409;
+  --muted:#7A6A50; --border:rgba(201,146,42,0.2);
+  --card:rgba(255,252,245,0.7);
+  --font:'Poppins',system-ui,sans-serif;
+  --shadow:0 8px 28px rgba(8,27,68,.09);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:#F0E8D5;color:var(--ink);min-height:100vh}
+a{text-decoration:none;color:inherit}
+
+/* ── LAYOUT ── */
+.layout{display:flex;min-height:100vh}
+.sidebar{width:220px;flex-shrink:0;background:var(--navy);position:fixed;top:0;left:0;height:100vh;overflow-y:auto;z-index:100}
+.sidebar::-webkit-scrollbar{width:3px}
+.sidebar::-webkit-scrollbar-thumb{background:rgba(255,255,255,.15)}
+.sb-brand{padding:18px 16px 14px;border-bottom:1px solid rgba(255,255,255,.08)}
+.sb-title{font-size:11px;font-weight:900;color:var(--gold-lt);letter-spacing:.05em;line-height:1.2}
+.sb-sub{font-size:9.5px;color:rgba(255,255,255,.45);margin-top:3px}
+.sb-section{padding:8px 0 4px;border-bottom:1px solid rgba(255,255,255,.05)}
+.sb-label{font-size:9px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.3);padding:7px 16px 3px}
+.sb-link{display:block;padding:7px 16px;font-size:11.5px;font-weight:600;color:rgba(255,255,255,.6);cursor:pointer;transition:all .18s;border:none;background:none;width:100%;text-align:left}
+.sb-link:hover,.sb-link.active{color:#fff;background:rgba(20,184,166,.15)}
+.sb-link.active{color:var(--gold-lt);border-left:2px solid var(--gold)}
+
+.main{margin-left:220px;flex:1}
+.topbar{height:52px;background:rgba(255,248,235,.95);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:90;display:flex;align-items:center;justify-content:space-between;padding:0 20px}
+.topbar-title{font-size:13px;font-weight:800;color:var(--navy)}
+.topbar-pills{display:flex;gap:6px}
+.tp{padding:4px 10px;border-radius:999px;font-size:10.5px;font-weight:800}
+.tp-gold{background:rgba(201,146,42,.15);color:var(--gold);border:1px solid rgba(201,146,42,.3)}
+.tp-teal{background:rgba(20,184,166,.1);color:var(--teal);border:1px solid rgba(20,184,166,.25)}
+.tp-red{background:rgba(229,72,77,.09);color:#C0392B;border:1px solid rgba(229,72,77,.2)}
+
+.page{padding:22px;display:none}
+.page.active{display:block}
+
+/* ── SECTION HEADER ── */
+.pg-eye{font-size:10px;font-weight:900;letter-spacing:.18em;text-transform:uppercase;color:var(--teal);margin-bottom:5px}
+.pg-title{font-size:24px;font-weight:900;color:var(--navy);line-height:1.1;margin-bottom:6px}
+.pg-sub{font-size:13px;color:var(--muted);line-height:1.65;max-width:700px;margin-bottom:20px}
+
+/* ── CARDS ── */
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px;box-shadow:var(--shadow);margin-bottom:14px;backdrop-filter:blur(4px)}
+.card-title{font-size:14px;font-weight:900;color:var(--navy);margin-bottom:12px;display:flex;align-items:center;gap:7px}
+.card-sm{background:rgba(255,248,235,.6);border:1px solid var(--border);border-radius:10px;padding:12px}
+
+/* ── GRIDS ── */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+@media(max-width:900px){.g3,.g4{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.g2,.g3,.g4{grid-template-columns:1fr}}
+
+/* ── ASSET CARDS ── */
+.asset-card{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;box-shadow:var(--shadow);transition:all .2s}
+.asset-card:hover{transform:translateY(-2px);border-color:rgba(201,146,42,.4)}
+.asset-visual{height:140px;display:flex;align-items:center;justify-content:center;font-size:36px;position:relative;overflow:hidden}
+.asset-visual::after{content:'';position:absolute;inset:0;opacity:.35}
+.av-hero{background:linear-gradient(135deg,#1C1409 0%,#4A2A0A 50%,#C0522A 100%)}
+.av-hero::after{background:linear-gradient(to right,rgba(201,146,42,.4),transparent)}
+.av-batik{background:linear-gradient(135deg,#1A0A2E 0%,#4A1A0E 100%)}
+.av-songket{background:linear-gradient(135deg,#1A0A2E 0%,#3A1A6A 60%,#8A6500 100%)}
+.av-wau{background:linear-gradient(135deg,#0A2840 0%,#0A5050 60%,#2A8A3A 100%)}
+.av-ukiran{background:linear-gradient(135deg,#3A1A0A 0%,#8A4A0A 100%)}
+.av-gallery{background:linear-gradient(135deg,#0A1440 0%,#1A4A6A 100%)}
+.av-judge{background:linear-gradient(135deg,#081B44 0%,#1A3A6A 100%)}
+.av-smart{background:linear-gradient(135deg,#0A2A2A 0%,#14B8A6 100%)}
+.av-venue{background:linear-gradient(135deg,#3A1A0A 0%,#C0522A 50%,#D4821A 100%)}
+.av-infog{background:linear-gradient(135deg,#081B44 0%,#14B8A6 100%)}
+.av-skyline{background:linear-gradient(135deg,#081B44 0%,#1A3A6A 60%,#C9922A 100%)}
+.av-motif{background:linear-gradient(135deg,#F5EDD8 0%,#DDD0B4 100%)}
+.av-motif::after{background:url("data:image/svg+xml,%3Csvg width='30' height='30' viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='15' cy='15' r='8' fill='none' stroke='%23C9922A' stroke-width='0.8' opacity='0.6'/%3E%3Ccircle cx='15' cy='15' r='3' fill='%23C9922A' opacity='0.3'/%3E%3C/svg%3E") center;opacity:1}
+.av-participants{background:linear-gradient(135deg,#0A2A1A 0%,#14B8A6 100%)}
+.asset-inner{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:6px}
+.asset-emoji{font-size:32px;line-height:1;filter:drop-shadow(0 2px 6px rgba(0,0,0,.3))}
+.asset-ratio{font-family:'Poppins',monospace;font-size:9px;font-weight:900;color:rgba(255,255,255,.7);background:rgba(0,0,0,.3);padding:2px 7px;border-radius:999px;letter-spacing:.08em}
+.asset-body{padding:12px 14px}
+.asset-num{font-family:'Poppins',monospace;font-size:9.5px;font-weight:900;color:var(--muted);letter-spacing:.08em;margin-bottom:3px}
+.asset-name{font-size:13px;font-weight:900;color:var(--navy);line-height:1.25;margin-bottom:4px}
+.asset-cat{font-size:11px;color:var(--muted);margin-bottom:8px}
+.asset-pills{display:flex;flex-wrap:wrap;gap:4px}
+.pill{padding:3px 8px;border-radius:999px;font-size:10px;font-weight:800;display:inline-block}
+.pill-gold{background:rgba(201,146,42,.12);color:var(--gold);border:1px solid rgba(201,146,42,.25)}
+.pill-teal{background:rgba(20,184,166,.1);color:var(--teal);border:1px solid rgba(20,184,166,.22)}
+.pill-red{background:rgba(192,82,42,.1);color:var(--terracotta);border:1px solid rgba(192,82,42,.22)}
+.pill-navy{background:rgba(8,27,68,.08);color:var(--navy);border:1px solid rgba(8,27,68,.14)}
+.pill-green{background:rgba(22,163,74,.1);color:#16A34A;border:1px solid rgba(22,163,74,.2)}
+.pill-orange{background:rgba(255,106,61,.09);color:var(--orange);border:1px solid rgba(255,106,61,.2)}
+
+/* ── FLOW DIAGRAM ── */
+.flow-section{margin-bottom:22px}
+.flow-title{font-size:16px;font-weight:900;color:var(--navy);margin-bottom:12px}
+.flow-row{display:flex;align-items:center;gap:0;overflow-x:auto;padding-bottom:4px}
+.flow-row::-webkit-scrollbar{height:3px}
+.flow-row::-webkit-scrollbar-thumb{background:rgba(201,146,42,.3)}
+.flow-node{flex-shrink:0;text-align:center;position:relative}
+.flow-box{width:110px;padding:10px 8px;border-radius:10px;border:1px solid;background:#fff;box-shadow:0 4px 12px rgba(8,27,68,.08);cursor:default}
+.flow-num{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:10px;font-weight:900;color:#fff;margin:0 auto 6px}
+.flow-label{font-size:10.5px;font-weight:900;color:var(--navy);line-height:1.25;margin-bottom:3px}
+.flow-sub{font-size:9.5px;color:var(--muted);line-height:1.3}
+.flow-arrow{font-size:14px;color:var(--sand);padding:0 5px;flex-shrink:0;align-self:center;margin-top:-8px}
+
+/* ── PAGE FLOW ── */
+.page-flow-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:16px}
+@media(max-width:900px){.page-flow-grid{grid-template-columns:repeat(3,1fr)}}
+.pf-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 12px;text-align:center;transition:all .2s;cursor:default}
+.pf-card:hover{transform:translateY(-2px);border-color:rgba(201,146,42,.4)}
+.pf-icon{font-size:26px;margin-bottom:8px}
+.pf-name{font-size:12px;font-weight:900;color:var(--navy);margin-bottom:4px;line-height:1.25}
+.pf-craft{font-size:10.5px;font-weight:700;margin-bottom:4px}
+.pf-assets{font-size:10px;color:var(--muted);line-height:1.4}
+
+/* ── COLOUR PALETTE ── */
+.palette-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.swatch{width:54px;height:54px;border-radius:10px;border:1px solid rgba(0,0,0,.08);box-shadow:0 2px 8px rgba(0,0,0,.1)}
+.swatch-wrap{text-align:center}
+.swatch-label{font-size:10px;font-weight:700;color:var(--muted);margin-top:4px;display:block}
+
+/* ── HIERARCHY TABLE ── */
+.bp-table{width:100%;border-collapse:collapse;font-size:12px}
+.bp-table th{font-size:10px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:8px 10px;border-bottom:2px solid var(--border);text-align:left;background:rgba(255,248,235,.5)}
+.bp-table td{padding:9px 10px;border-bottom:1px solid rgba(201,146,42,.1);vertical-align:top;color:var(--ink)}
+.bp-table tr:last-child td{border-bottom:none}
+.bp-table tr:hover td{background:rgba(201,146,42,.03)}
+.priority-high{display:inline-block;font-size:9.5px;font-weight:900;padding:2px 7px;border-radius:999px;background:rgba(192,82,42,.1);color:var(--terracotta);border:1px solid rgba(192,82,42,.2)}
+.priority-med{display:inline-block;font-size:9.5px;font-weight:900;padding:2px 7px;border-radius:999px;background:rgba(201,146,42,.12);color:var(--gold);border:1px solid rgba(201,146,42,.25)}
+.stage-1{color:var(--teal);font-weight:800}
+.stage-2{color:var(--gold);font-weight:800}
+.stage-3{color:var(--muted);font-weight:800}
+
+/* ── GAP ANALYSIS ── */
+.gap-item{display:flex;gap:10px;padding:12px 0;border-bottom:1px solid rgba(201,146,42,.1)}
+.gap-item:last-child{border-bottom:none}
+.gap-bar{width:4px;border-radius:2px;flex-shrink:0;align-self:stretch;min-height:36px}
+.gap-critical{background:#C0392B}
+.gap-major{background:var(--orange)}
+.gap-suggest{background:var(--teal)}
+.gap-sev{font-size:9.5px;font-weight:900;padding:2px 7px;border-radius:999px;display:inline-block;margin-bottom:4px}
+.gs-crit{background:rgba(192,57,43,.1);color:#C0392B;border:1px solid rgba(192,57,43,.2)}
+.gs-major{background:rgba(255,106,61,.1);color:var(--orange);border:1px solid rgba(255,106,61,.2)}
+.gs-sugg{background:rgba(20,184,166,.1);color:var(--teal);border:1px solid rgba(20,184,166,.2)}
+.gap-title{font-size:13px;font-weight:900;color:var(--navy);margin-bottom:3px}
+.gap-desc{font-size:12px;color:var(--muted);line-height:1.65;margin-bottom:5px}
+.gap-rec{font-size:11.5px;color:var(--teal);font-style:italic}
+
+/* ── NOTICE ── */
+.notice{border-radius:10px;padding:11px 14px;font-size:12.5px;line-height:1.6;margin-bottom:12px}
+.n-gold{background:rgba(201,146,42,.08);border:1px solid rgba(201,146,42,.25);color:var(--gold)}
+.n-teal{background:rgba(20,184,166,.07);border:1px solid rgba(20,184,166,.22);color:var(--teal)}
+.n-red{background:rgba(192,82,42,.07);border:1px solid rgba(192,82,42,.2);color:var(--terracotta)}
+
+/* ── WIREFRAME BLOCKS ── */
+.wire{border:1.5px dashed var(--border);border-radius:8px;background:rgba(255,248,235,.4);display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--muted);font-weight:700;text-align:center}
+.wire-hero{height:160px}
+.wire-nav{height:44px}
+.wire-section{height:100px}
+.wire-card{height:120px}
+.wire-strip{height:60px}
+.wire-footer{height:70px}
+.wire-label{padding:6px 10px;background:rgba(201,146,42,.1);border-radius:5px;font-size:10px;font-weight:900;color:var(--gold)}
+
+/* ── PHASE STRIP ── */
+.phase-strip{display:grid;grid-template-columns:repeat(5,1fr);gap:0;border-radius:8px;overflow:hidden;margin-bottom:14px}
+.ps{padding:10px 6px;text-align:center;font-size:11px;font-weight:900}
+.ps-1{background:rgba(20,184,166,.15);color:var(--teal)}
+.ps-2{background:rgba(8,27,68,.12);color:var(--navy)}
+.ps-3{background:rgba(255,106,61,.1);color:var(--orange)}
+.ps-4{background:rgba(201,146,42,.12);color:var(--gold)}
+.ps-5{background:rgba(79,70,229,.1);color:#4F46E5}
+
+/* Print */
+@media print{.sidebar,.topbar{display:none}.main{margin-left:0}.page{display:block!important}}
+
+/* Responsive */
+@media(max-width:768px){
+  .sidebar{display:none}
+  .main{margin-left:0}
+}
+</style>
+</head>
+<body>
+<div class="layout">
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sb-brand">
+    <div class="sb-title">Camp 21 · 2026<br/>Website Blueprint</div>
+    <div class="sb-sub">Asset Map & Professional Flow</div>
+  </div>
+  <div class="sb-section">
+    <div class="sb-label">Overview</div>
+    <button class="sb-link active" onclick="goTo('overview',this)">📋 Blueprint Summary</button>
+    <button class="sb-link" onclick="goTo('direction',this)">🎨 Design Direction</button>
+    <button class="sb-link" onclick="goTo('palette',this)">🖌 Colour & Typography</button>
+  </div>
+  <div class="sb-section">
+    <div class="sb-label">Assets</div>
+    <button class="sb-link" onclick="goTo('assets-hero',this)">🏛 Hero Visuals (3)</button>
+    <button class="sb-link" onclick="goTo('assets-craft',this)">🎨 Craft Cards (8)</button>
+    <button class="sb-link" onclick="goTo('assets-layout',this)">🗺 Layout / Tourism (3)</button>
+    <button class="sb-link" onclick="goTo('assets-infog',this)">📊 Infographics (2)</button>
+  </div>
+  <div class="sb-section">
+    <div class="sb-label">Website Structure</div>
+    <button class="sb-link" onclick="goTo('page-flow',this)">🗂 Page Flow</button>
+    <button class="sb-link" onclick="goTo('wireframes',this)">📐 Wireframe Blueprint</button>
+    <button class="sb-link" onclick="goTo('asset-map',this)">📍 Asset Placement Map</button>
+  </div>
+  <div class="sb-section">
+    <div class="sb-label">Action Plan</div>
+    <button class="sb-link" onclick="goTo('generation-order',this)">⚡ Generation Order</button>
+    <button class="sb-link" onclick="goTo('gaps',this)">🔍 Gap Analysis</button>
+    <button class="sb-link" onclick="goTo('prompts',this)">✏️ Ready-to-Use Prompts</button>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<div class="main">
+<div class="topbar">
+  <div class="topbar-title" id="topbar-title">Blueprint Summary</div>
+  <div class="topbar-pills">
+    <span class="tp tp-gold">16 Assets · All To Be Generated</span>
+    <span class="tp tp-teal">9 High Priority</span>
+    <span class="tp tp-red">Heritage-First Direction</span>
+  </div>
+</div>
+
+<!-- ═══ OVERVIEW ═══ -->
+<div class="page active" id="overview">
+  <div class="pg-eye">Camp 21: Synergising Literacies 2026</div>
+  <div class="pg-title">Website Blueprint & Asset Map</div>
+  <div class="pg-sub">Full review of the 16 planned visual assets, professional outcome blueprint, complete page flow, and corrected design direction based on the asset specification spreadsheet.</div>
+
+  <div class="notice n-gold">📌 <strong>Critical correction identified:</strong> The design direction must reflect the <em>real</em> Kompleks Kraf Kuala Lumpur — a traditional Malay-style craft complex with terracotta roofs and ochre facade. All hero and venue visuals must avoid futuristic/glass building interpretations.</div>
+
+  <!-- Summary stats -->
+  <div class="g4" style="margin-bottom:16px">
+    <div class="card-sm" style="text-align:center"><div style="font-size:28px;font-weight:900;color:var(--navy)">16</div><div style="font-size:11px;font-weight:700;color:var(--muted);margin-top:3px">Total Assets Planned</div></div>
+    <div class="card-sm" style="text-align:center"><div style="font-size:28px;font-weight:900;color:var(--terracotta)">9</div><div style="font-size:11px;font-weight:700;color:var(--muted);margin-top:3px">High Priority</div></div>
+    <div class="card-sm" style="text-align:center"><div style="font-size:28px;font-weight:900;color:var(--teal)">3</div><div style="font-size:11px;font-weight:700;color:var(--muted);margin-top:3px">Generation Stages</div></div>
+    <div class="card-sm" style="text-align:center"><div style="font-size:28px;font-weight:900;color:var(--gold)">10</div><div style="font-size:11px;font-weight:700;color:var(--muted);margin-top:3px">Website Pages Mapped</div></div>
+  </div>
+
+  <!-- Asset category breakdown -->
+  <div class="card">
+    <div class="card-title">Asset Categories</div>
+    <div class="g4">
+      <div class="card-sm"><div style="font-size:14px;font-weight:900;color:var(--navy);margin-bottom:4px">🏛 Hero Visuals — 3 assets</div><div style="font-size:11.5px;color:var(--muted)">Main hero · Live panel · Batik/Songket motif</div><div style="margin-top:6px"><span class="pill pill-red">2 High</span> <span class="pill pill-gold">1 Medium</span></div></div>
+      <div class="card-sm"><div style="font-size:14px;font-weight:900;color:var(--navy);margin-bottom:4px">🎨 Craft Cards — 8 assets</div><div style="font-size:11.5px;color:var(--muted)">Batik · Songket · Wau · Ukiran · Gallery · Judge · SmartDT · Participants</div><div style="margin-top:6px"><span class="pill pill-red">5 High</span> <span class="pill pill-gold">3 Medium</span></div></div>
+      <div class="card-sm"><div style="font-size:14px;font-weight:900;color:var(--navy);margin-bottom:4px">🗺 Layout/Tourism — 3 assets</div><div style="font-size:11.5px;color:var(--muted)">Venue showcase · Explore Malaysia · KL skyline divider</div><div style="margin-top:6px"><span class="pill pill-red">2 High</span> <span class="pill pill-gold">1 Medium</span></div></div>
+      <div class="card-sm"><div style="font-size:14px;font-weight:900;color:var(--navy);margin-bottom:4px">📊 Infographics — 2 assets</div><div style="font-size:11.5px;color:var(--muted)">SDG Impact strip · DT Journey strip</div><div style="margin-top:6px"><span class="pill pill-red">1 High</span> <span class="pill pill-gold">1 Medium</span></div></div>
+    </div>
+  </div>
+
+  <!-- Craft-to-page mapping summary -->
+  <div class="card">
+    <div class="card-title">Craft Identity → Page Theme Mapping</div>
+    <div style="overflow-x:auto"><table class="bp-table">
+      <thead><tr><th>Page</th><th>Craft Theme</th><th>Visual Mood</th><th>Key Assets</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Landing Page</strong></td><td>Mixed heritage identity</td><td>Flagship, premium, national pride</td><td>Hero Banner + Craft Cards + DT Journey + SDG strip</td></tr>
+        <tr><td><strong>Programme</strong></td><td>Batik</td><td>Journey, layered, artistic</td><td>Batik Discovery card + programme flow timeline</td></tr>
+        <tr><td><strong>Trainers</strong></td><td>Songket</td><td>Prestige, structure, elegance</td><td>Songket Weave Lab card + gold dividers</td></tr>
+        <tr><td><strong>Groups / Participants</strong></td><td>Wau</td><td>Energetic, youthful, colourful</td><td>Wau Innovation Studio card + Participants' Corner</td></tr>
+        <tr><td><strong>DT Journey</strong></td><td>Minimal heritage icons</td><td>Informative, clean, guided</td><td>DT Journey Infographic + motif linework</td></tr>
+        <tr><td><strong>Gallery Walk</strong></td><td>Exhibition style</td><td>Creative, immersive, showcase</td><td>Gallery Walk card + display board visuals</td></tr>
+        <tr><td><strong>Judges</strong></td><td>Ukiran + formal gold</td><td>Authoritative, polished, respectful</td><td>Ukiran Heritage card + Judge Portal card</td></tr>
+        <tr><td><strong>Activity Updates</strong></td><td>Modern dashboard</td><td>Interactive, live, dynamic</td><td>Live Activity Updates panel</td></tr>
+        <tr><td><strong>Resources</strong></td><td>Craft library/archive</td><td>Informative, structured, curated</td><td>Resource cards with craft categories</td></tr>
+        <tr><td><strong>Logistics</strong></td><td>Kompleks Kraf KL</td><td>Destination, guidance, welcoming</td><td>Venue Showcase + KL Heritage Skyline divider</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</div>
+
+<!-- ═══ DESIGN DIRECTION ═══ -->
+<div class="page" id="direction">
+  <div class="pg-eye">Visual Identity Foundation</div>
+  <div class="pg-title">Design Direction & Mood</div>
+  <div class="pg-sub">The corrected and definitive design direction for Camp 21 2026 website — grounded in the real Kompleks Kraf KL identity.</div>
+
+  <div class="notice n-red">⚠️ <strong>Critical correction from the asset brief:</strong> Previous iterations generated futuristic glass buildings, luxury hotels or convention centres for the venue. This is WRONG. The correct identity is "Heritage Village in the Heart of Kuala Lumpur."</div>
+
+  <div class="g2" style="margin-bottom:14px">
+    <div class="card" style="border-left:3px solid var(--teal)">
+      <div class="card-title">✅ Correct Direction — Use These</div>
+      <div style="display:grid;gap:7px;font-size:12.5px">
+        <div style="display:flex;gap:8px"><span style="color:var(--teal);font-weight:900">✓</span><span>Traditional Malay-style craft complex, pavilion/compound feel</span></div>
+        <div style="display:flex;gap:8px"><span style="color:var(--teal);font-weight:900">✓</span><span>Steep <strong>red/brown tiled roofs</strong>, <strong>ochre/yellow facade</strong>, carved wooden details</span></div>
+        <div style="display:flex;gap:8px"><span style="color:var(--teal);font-weight:900">✓</span><span>Black-and-gold "Kompleks Kraf Kuala Lumpur" signage + flagpoles</span></div>
+        <div style="display:flex;gap:8px"><span style="color:var(--teal);font-weight:900">✓</span><span>Tropical landscaping — gardens, warm daylight or golden hour</span></div>
+        <div style="display:flex;gap:8px"><span style="color:var(--teal);font-weight:900">✓</span><span>KL high-rises (KLCC, Petronas Towers) subtly in the background</span></div>
+        <div style="display:flex;gap:8px"><span style="color:var(--teal);font-weight:900">✓</span><span>Batik canting hands, songket border, wau bulan, ukiran kayu as foreground accents</span></div>
+        <div style="display:flex;gap:8px"><span style="color:var(--teal);font-weight:900">✓</span><span>Mood: prestigious, welcoming, cultural, educational, internationally professional</span></div>
+      </div>
+    </div>
+    <div class="card" style="border-left:3px solid #C0392B">
+      <div class="card-title">❌ Negative Direction — Avoid These</div>
+      <div style="display:grid;gap:7px;font-size:12.5px">
+        <div style="display:flex;gap:8px"><span style="color:#C0392B;font-weight:900">✗</span><span>Futuristic glass buildings or towers</span></div>
+        <div style="display:flex;gap:8px"><span style="color:#C0392B;font-weight:900">✗</span><span>Luxury hotel or resort aesthetic</span></div>
+        <div style="display:flex;gap:8px"><span style="color:#C0392B;font-weight:900">✗</span><span>Shopping mall, convention centre, generic modern museum</span></div>
+        <div style="display:flex;gap:8px"><span style="color:#C0392B;font-weight:900">✗</span><span>Dark futuristic night scene with cold neon lighting</span></div>
+        <div style="display:flex;gap:8px"><span style="color:#C0392B;font-weight:900">✗</span><span>Generic Asian motifs or non-Malaysian craft references</span></div>
+        <div style="display:flex;gap:8px"><span style="color:#C0392B;font-weight:900">✗</span><span>Neon colours or cold corporate grey-only palette</span></div>
+        <div style="display:flex;gap:8px"><span style="color:#C0392B;font-weight:900">✗</span><span>Loud/overcrowded patterns that reduce text readability</span></div>
+        <div style="display:flex;gap:8px"><span style="color:#C0392B;font-weight:900">✗</span><span>Generic SaaS-style dashboard without Malaysian craft identity</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Website Direction Summary</div>
+    <div class="g4">
+      <div class="card-sm"><div style="font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:5px">Website Direction</div><div style="font-size:12.5px;font-weight:800;color:var(--navy)">Modern Malaysian Heritage + Cultural Tourism + Creative Innovation + Professional Event Hub</div></div>
+      <div class="card-sm"><div style="font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:5px">Design Mood</div><div style="font-size:12.5px;font-weight:800;color:var(--navy)">Infographic · Informative · Interactive · Creative · Premium · Internationally Polished</div></div>
+      <div class="card-sm"><div style="font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:5px">Venue Identity</div><div style="font-size:12.5px;font-weight:800;color:var(--navy)">Kompleks Kraf Kuala Lumpur as a Living Heritage Classroom</div></div>
+      <div class="card-sm"><div style="font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:5px">Hero Statement</div><div style="font-size:12.5px;font-weight:800;color:var(--navy)">"Where traditional craft meets future innovation at Kompleks Kraf Kuala Lumpur."</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ COLOUR & TYPOGRAPHY ═══ -->
+<div class="page" id="palette">
+  <div class="pg-eye">Design System</div>
+  <div class="pg-title">Colour Palette & Typography</div>
+  <div class="pg-sub">Updated colour system derived from the Kompleks Kraf KL venue identity, Malaysian crafts and the Smart DT design tokens.</div>
+
+  <div class="card">
+    <div class="card-title">Updated Colour Palette — Heritage + Digital Blend</div>
+    <div class="palette-row">
+      <div class="swatch-wrap"><div class="swatch" style="background:#081B44"></div><span class="swatch-label">Deep Navy</span></div>
+      <div class="swatch-wrap"><div class="swatch" style="background:#F5EDD8"></div><span class="swatch-label">Warm Cream</span></div>
+      <div class="swatch-wrap"><div class="swatch" style="background:#C0522A"></div><span class="swatch-label">Terracotta</span></div>
+      <div class="swatch-wrap"><div class="swatch" style="background:#D4821A"></div><span class="swatch-label">Ochre/Yellow</span></div>
+      <div class="swatch-wrap"><div class="swatch" style="background:#C9922A"></div><span class="swatch-label">Songket Gold</span></div>
+      <div class="swatch-wrap"><div class="swatch" style="background:#14B8A6"></div><span class="swatch-label">Teal</span></div>
+      <div class="swatch-wrap"><div class="swatch" style="background:#4A7C6F"></div><span class="swatch-label">Soft Green</span></div>
+      <div class="swatch-wrap"><div class="swatch" style="background:#7A1530"></div><span class="swatch-label">Batik Maroon</span></div>
+      <div class="swatch-wrap"><div class="swatch" style="background:#FF6A3D"></div><span class="swatch-label">Orange</span></div>
+    </div>
+    <div class="notice n-teal" style="margin-top:8px;margin-bottom:0">The terracotta (#C0522A) and ochre (#D4821A) are NEW additions derived from the venue's actual roof and facade colours — not present in the original Smart DT token set. These should be integrated into the website CSS as additional variables.</div>
+  </div>
+
+  <div class="g2">
+    <div class="card">
+      <div class="card-title">Typography System</div>
+      <div style="display:grid;gap:10px;font-size:12.5px">
+        <div class="card-sm"><div style="font-family:'Poppins',sans-serif;font-size:22px;font-weight:900;color:var(--navy);line-height:1">Poppins 900</div><div style="font-size:11px;color:var(--muted);margin-top:3px">Display / Headlines — use for H1, H2</div></div>
+        <div class="card-sm"><div style="font-family:'Poppins',sans-serif;font-size:16px;font-weight:700;color:var(--navy)">Poppins 700</div><div style="font-size:11px;color:var(--muted);margin-top:3px">Subheadings, card titles, nav labels</div></div>
+        <div class="card-sm"><div style="font-family:'Poppins',sans-serif;font-size:13px;font-weight:500;color:var(--ink)">Poppins 500 — body text, descriptions, captions</div></div>
+        <div class="card-sm"><div style="font-family:'Poppins',sans-serif;font-size:11px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">POPPINS 900 — EYEBROW LABELS</div></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Ratio Specification per Asset Type</div>
+      <div style="overflow-x:auto"><table class="bp-table">
+        <thead><tr><th>Asset Type</th><th>Ratio</th><th>Use Case</th></tr></thead>
+        <tbody>
+          <tr><td>Hero Banner</td><td><strong>16:9</strong></td><td>Full-width landing page hero</td></tr>
+          <tr><td>Live Activity Panel</td><td><strong>4:5</strong></td><td>Hero sidebar widget</td></tr>
+          <tr><td>Background Motif</td><td><strong>1:1</strong></td><td>Repeating tile overlay</td></tr>
+          <tr><td>Craft Cards (×8)</td><td><strong>4:3</strong></td><td>Feature card image</td></tr>
+          <tr><td>Venue Showcase</td><td><strong>16:9</strong></td><td>Full-width section block</td></tr>
+          <tr><td>Explore Malaysia</td><td><strong>16:9</strong></td><td>Tourism section visual</td></tr>
+          <tr><td>KL Skyline Divider</td><td><strong>21:9</strong></td><td>Section strip/divider</td></tr>
+          <tr><td>SDG Infographic</td><td><strong>16:5</strong></td><td>Impact section strip</td></tr>
+          <tr><td>DT Journey</td><td><strong>16:4</strong></td><td>DT education strip</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ HERO ASSETS ═══ -->
+<div class="page" id="assets-hero">
+  <div class="pg-eye">Category 1 · 3 Assets</div>
+  <div class="pg-title">Hero Visuals</div>
+  <div class="pg-sub">The three foundational visual assets that define the site's above-the-fold identity. Asset 1 is the most critical — it sets the entire tone.</div>
+
+  <div class="g3">
+    <div class="asset-card">
+      <div class="asset-visual av-hero"><div class="asset-inner"><div class="asset-emoji">🏛</div><div class="asset-ratio">16:9</div></div></div>
+      <div class="asset-body">
+        <div class="asset-num">ASSET 01 · HIGH PRIORITY · STAGE 1</div>
+        <div class="asset-name">Main Landing Page Hero Visual</div>
+        <div class="asset-cat">Main hero banner · hero-main.jpg</div>
+        <div class="asset-pills"><span class="pill pill-red">Generate First</span><span class="pill pill-gold">Venue-accurate</span><span class="pill pill-teal">16:9</span></div>
+      </div>
+    </div>
+    <div class="asset-card">
+      <div class="asset-visual av-gallery"><div class="asset-inner"><div class="asset-emoji">📊</div><div class="asset-ratio">4:5</div></div></div>
+      <div class="asset-body">
+        <div class="asset-num">ASSET 02 · MEDIUM · STAGE 2</div>
+        <div class="asset-name">Live Activity Updates Panel Visual</div>
+        <div class="asset-cat">Hero side panel · live-updates-panel.jpg</div>
+        <div class="asset-pills"><span class="pill pill-gold">Stage 2</span><span class="pill pill-navy">Dashboard widget</span><span class="pill pill-teal">4:5</span></div>
+      </div>
+    </div>
+    <div class="asset-card">
+      <div class="asset-visual av-motif"><div class="asset-inner"><div class="asset-emoji">🌸</div><div class="asset-ratio">1:1 tile</div></div></div>
+      <div class="asset-body">
+        <div class="asset-num">ASSET 03 · MEDIUM · STAGE 3</div>
+        <div class="asset-name">Batik & Songket Background Motif</div>
+        <div class="asset-cat">Background overlay · batik-songket-bg.png</div>
+        <div class="asset-pills"><span class="pill pill-gold">Low opacity</span><span class="pill pill-navy">Repeating tile</span><span class="pill pill-teal">1:1</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:4px">
+    <div class="card-title">Asset 01 — Corrected Hero Prompt (Ready to Use)</div>
+    <div style="background:rgba(8,27,68,.05);border:1px solid rgba(8,27,68,.12);border-radius:10px;padding:14px;font-size:12px;line-height:1.75;color:var(--ink);font-family:'Courier New',monospace">
+      Create a premium website hero banner for "Camp21: Synergising Literacies 2026". The scene must accurately reflect the real Kompleks Kraf Kuala Lumpur at Jalan Conlay. Show a traditional Malay-style craft complex entrance with steep red/brown tiled roofs, ochre/yellow facade, carved wooden details, black-and-gold "Kompleks Kraf Kuala Lumpur" signage, flagpoles, tropical landscaping and modern Kuala Lumpur high-rise buildings in the background. Add elegant Malaysian craft elements such as batik motifs, songket-inspired borders, wau bulan decoration and a close-up of artisan hands using a canting tool on batik fabric. Use a refined navy, warm cream, songket gold, terracotta roof, teal and soft green palette. The mood should be prestigious, welcoming, cultural, educational and internationally professional. Leave clean space on the left for website headline text and call-to-action buttons. Style: high-end cultural tourism website hero, realistic venue-inspired, editorial, polished, warm daylight or golden hour.<br/><br/>
+      <strong style="color:#C0392B">NEGATIVE PROMPT:</strong> futuristic glass building, luxury hotel, shopping mall, convention centre, generic modern museum, invented venue facade, glass tower, resort, cold blue neon lighting, empty sterile environment.
+    </div>
+  </div>
+</div>
+
+<!-- ═══ CRAFT CARDS ═══ -->
+<div class="page" id="assets-craft">
+  <div class="pg-eye">Category 2 · 8 Assets</div>
+  <div class="pg-title">Craft Cards</div>
+  <div class="pg-sub">Eight 4:3 feature card images representing each programme activity and portal section. Five are high priority for Stage 1/2 generation.</div>
+
+  <div class="g4">
+    <div class="asset-card">
+      <div class="asset-visual av-batik"><div class="asset-inner"><div class="asset-emoji">🎨</div><div class="asset-ratio">4:3</div></div></div>
+      <div class="asset-body"><div class="asset-num">ASSET 04 · HIGH · STAGE 1</div><div class="asset-name">Batik Discovery Card</div><div class="asset-cat">card-batik-discovery.jpg</div><div class="asset-pills"><span class="pill pill-red">Stage 1</span><span class="pill pill-gold">Programme page</span></div></div>
+    </div>
+    <div class="asset-card">
+      <div class="asset-visual av-songket"><div class="asset-inner"><div class="asset-emoji">🧵</div><div class="asset-ratio">4:3</div></div></div>
+      <div class="asset-body"><div class="asset-num">ASSET 05 · HIGH · STAGE 1</div><div class="asset-name">Songket Weave Lab Card</div><div class="asset-cat">card-songket-weave.jpg</div><div class="asset-pills"><span class="pill pill-red">Stage 1</span><span class="pill pill-gold">Trainers page</span></div></div>
+    </div>
+    <div class="asset-card">
+      <div class="asset-visual av-wau"><div class="asset-inner"><div class="asset-emoji">🪁</div><div class="asset-ratio">4:3</div></div></div>
+      <div class="asset-body"><div class="asset-num">ASSET 06 · HIGH · STAGE 1</div><div class="asset-name">Wau Innovation Studio Card</div><div class="asset-cat">card-wau-innovation.jpg</div><div class="asset-pills"><span class="pill pill-red">Stage 1</span><span class="pill pill-teal">Groups/Participants</span></div></div>
+    </div>
+    <div class="asset-card">
+      <div class="asset-visual av-ukiran"><div class="asset-inner"><div class="asset-emoji">🪵</div><div class="asset-ratio">4:3</div></div></div>
+      <div class="asset-body"><div class="asset-num">ASSET 07 · HIGH · STAGE 1</div><div class="asset-name">Ukiran Heritage Stories Card</div><div class="asset-cat">card-ukiran-heritage.jpg</div><div class="asset-pills"><span class="pill pill-red">Stage 1</span><span class="pill pill-gold">Judges page</span></div></div>
+    </div>
+    <div class="asset-card">
+      <div class="asset-visual av-gallery"><div class="asset-inner"><div class="asset-emoji">🖼</div><div class="asset-ratio">4:3</div></div></div>
+      <div class="asset-body"><div class="asset-num">ASSET 08 · MEDIUM · STAGE 2</div><div class="asset-name">Gallery Walk Card</div><div class="asset-cat">card-gallery-walk.jpg</div><div class="asset-pills"><span class="pill pill-gold">Stage 2</span><span class="pill pill-teal">Gallery page</span></div></div>
+    </div>
+    <div class="asset-card">
+      <div class="asset-visual av-judge"><div class="asset-inner"><div class="asset-emoji">⚖️</div><div class="asset-ratio">4:3</div></div></div>
+      <div class="asset-body"><div class="asset-num">ASSET 09 · MEDIUM · STAGE 3</div><div class="asset-name">Judge Portal Card</div><div class="asset-cat">card-judge-portal.jpg</div><div class="asset-pills"><span class="pill pill-navy">Stage 3</span><span class="pill pill-gold">Judges section</span></div></div>
+    </div>
+    <div class="asset-card">
+      <div class="asset-visual av-smart"><div class="asset-inner"><div class="asset-emoji">📱</div><div class="asset-ratio">4:3</div></div></div>
+      <div class="asset-body"><div class="asset-num">ASSET 10 · HIGH · STAGE 2</div><div class="asset-name">SMART DT App Card</div><div class="asset-cat">card-smartdt-app.jpg</div><div class="asset-pills"><span class="pill pill-red">Stage 2</span><span class="pill pill-teal">DT Guide page</span></div></div>
+    </div>
+    <div class="asset-card">
+      <div class="asset-visual av-participants"><div class="asset-inner"><div class="asset-emoji">👥</div><div class="asset-ratio">4:3</div></div></div>
+      <div class="asset-body"><div class="asset-num">ASSET 11 · MEDIUM · STAGE 3</div><div class="asset-name">Participants' Corner Card</div><div class="asset-cat">card-participants-corner.jpg</div><div class="asset-pills"><span class="pill pill-navy">Stage 3</span><span class="pill pill-teal">Participants page</span></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ LAYOUT/TOURISM ═══ -->
+<div class="page" id="assets-layout">
+  <div class="pg-eye">Category 3 · 3 Assets</div>
+  <div class="pg-title">Layout / Tourism Assets</div>
+  <div class="pg-sub">Three wide-format assets for venue identity and cultural tourism positioning. The Venue Showcase is Stage 2 high priority.</div>
+
+  <div class="g3">
+    <div class="asset-card">
+      <div class="asset-visual av-venue" style="height:160px"><div class="asset-inner"><div class="asset-emoji">🏘</div><div class="asset-ratio">16:9</div></div></div>
+      <div class="asset-body"><div class="asset-num">ASSET 12 · HIGH · STAGE 2</div><div class="asset-name">Venue Showcase Section — Kompleks Kraf KL</div><div class="asset-cat">venue-kompleks-kraf.jpg · 16:9</div><div class="asset-pills"><span class="pill pill-red">Stage 2</span><span class="pill pill-red">Venue-accurate</span><span class="pill pill-gold">Logistics page</span></div></div>
+    </div>
+    <div class="asset-card">
+      <div class="asset-visual av-batik" style="height:160px"><div class="asset-inner"><div class="asset-emoji">🌺</div><div class="asset-ratio">16:9</div></div></div>
+      <div class="asset-body"><div class="asset-num">ASSET 13 · HIGH · STAGE 2</div><div class="asset-name">Explore Malaysia Through Craft Visual</div><div class="asset-cat">explore-malaysia-craft.jpg · 16:9</div><div class="asset-pills"><span class="pill pill-red">Stage 2</span><span class="pill pill-teal">Tourism section</span></div></div>
+    </div>
+    <div class="asset-card">
+      <div class="asset-visual av-skyline" style="height:160px"><div class="asset-inner"><div class="asset-emoji">🌆</div><div class="asset-ratio">21:9</div></div></div>
+      <div class="asset-body"><div class="asset-num">ASSET 14 · MEDIUM · STAGE 3</div><div class="asset-name">Kuala Lumpur Heritage Skyline Divider</div><div class="asset-cat">kl-heritage-skyline.jpg · 21:9</div><div class="asset-pills"><span class="pill pill-navy">Stage 3</span><span class="pill pill-gold">Section divider</span></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ INFOGRAPHICS ═══ -->
+<div class="page" id="assets-infog">
+  <div class="pg-eye">Category 4 · 2 Assets</div>
+  <div class="pg-title">Infographics</div>
+  <div class="pg-sub">Two horizontal strip infographics for the educational and impact sections of the website. The DT Journey strip is Stage 2 high priority.</div>
+
+  <div class="g2">
+    <div class="asset-card">
+      <div class="asset-visual av-infog" style="height:120px"><div class="asset-inner"><div class="asset-emoji">🌱</div><div class="asset-ratio">16:5 strip</div></div></div>
+      <div class="asset-body"><div class="asset-num">ASSET 15 · MEDIUM · STAGE 2</div><div class="asset-name">SDG Impact Infographic</div><div class="asset-cat">infographic-sdg-impact.jpg · SDG 4, 11, 12 · Impact section strip</div><div class="asset-pills"><span class="pill pill-gold">Stage 2</span><span class="pill pill-teal">16:5 ratio</span><span class="pill pill-green">SDG aligned</span></div></div>
+    </div>
+    <div class="asset-card">
+      <div class="asset-visual av-smart" style="height:120px"><div class="asset-inner"><div class="asset-emoji">🧠</div><div class="asset-ratio">16:4 strip</div></div></div>
+      <div class="asset-body"><div class="asset-num">ASSET 16 · HIGH · STAGE 2</div><div class="asset-name">Design Thinking Journey Infographic</div><div class="asset-cat">infographic-dt-journey.jpg · 5 DT phases · DT journey strip</div><div class="asset-pills"><span class="pill pill-red">Stage 2</span><span class="pill pill-teal">16:4 ratio</span><span class="pill pill-navy">Educational core</span></div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">DT Journey Infographic — Phase Sequence</div>
+    <div class="phase-strip">
+      <div class="ps ps-1"><div style="font-size:18px;margin-bottom:4px">👁</div>Empathise<div style="font-size:9px;opacity:.8;margin-top:3px">Understand users</div></div>
+      <div class="ps ps-2"><div style="font-size:18px;margin-bottom:4px">🎯</div>Define<div style="font-size:9px;opacity:.8;margin-top:3px">Frame the problem</div></div>
+      <div class="ps ps-3"><div style="font-size:18px;margin-bottom:4px">💡</div>Ideate<div style="font-size:9px;opacity:.8;margin-top:3px">Generate ideas</div></div>
+      <div class="ps ps-4"><div style="font-size:18px;margin-bottom:4px">🔧</div>Prototype<div style="font-size:9px;opacity:.8;margin-top:3px">Build to think</div></div>
+      <div class="ps ps-5"><div style="font-size:18px;margin-bottom:4px">🎤</div>Pitch<div style="font-size:9px;opacity:.8;margin-top:3px">Present & evaluate</div></div>
+    </div>
+    <p style="font-size:12px;color:var(--muted)">Note: The asset brief specifies "Pitch" as the 5th phase (not "Test") — this is the Camp 21 adaptation of the standard DT framework for the pitching competition context.</p>
+  </div>
+</div>
+
+<!-- ═══ PAGE FLOW ═══ -->
+<div class="page" id="page-flow">
+  <div class="pg-eye">Website Architecture</div>
+  <div class="pg-title">Page Flow & Navigation Structure</div>
+  <div class="pg-sub">10 mapped website pages with their craft identity, asset allocation and user journey path.</div>
+
+  <div class="card" style="margin-bottom:16px">
+    <div class="card-title">Recommended Navigation Hierarchy</div>
+    <div style="overflow-x:auto">
+      <div class="flow-row">
+        <div class="flow-node">
+          <div class="flow-box" style="border-color:var(--terracotta);background:rgba(192,82,42,.06)">
+            <div class="flow-num" style="background:var(--terracotta)">🏠</div>
+            <div class="flow-label">Landing Page</div>
+            <div class="flow-sub">Hero + Craft Cards + DT Strip + SDG</div>
+          </div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-node">
+          <div class="flow-box" style="border-color:var(--teal);background:rgba(20,184,166,.06)">
+            <div class="flow-num" style="background:var(--teal)">📅</div>
+            <div class="flow-label">Programme</div>
+            <div class="flow-sub">Batik theme + timeline</div>
+          </div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-node">
+          <div class="flow-box" style="border-color:var(--gold);background:rgba(201,146,42,.06)">
+            <div class="flow-num" style="background:var(--gold)">🧠</div>
+            <div class="flow-label">DT Journey</div>
+            <div class="flow-sub">DT infographic + Smart DT App</div>
+          </div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-node">
+          <div class="flow-box" style="border-color:var(--orange);background:rgba(255,106,61,.06)">
+            <div class="flow-num" style="background:var(--orange)">👥</div>
+            <div class="flow-label">Participants</div>
+            <div class="flow-sub">Wau theme + Corner card</div>
+          </div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-node">
+          <div class="flow-box" style="border-color:var(--navy);background:rgba(8,27,68,.06)">
+            <div class="flow-num" style="background:var(--navy)">⚖️</div>
+            <div class="flow-label">Judges</div>
+            <div class="flow-sub">Ukiran + Judge Portal</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-flow-grid">
+    <div class="pf-card">
+      <div class="pf-icon">🏠</div>
+      <div class="pf-name">Landing Page</div>
+      <div class="pf-craft" style="color:var(--terracotta)">Mixed Heritage</div>
+      <div class="pf-assets">Hero · Craft Cards ×4 · DT Strip · SDG Strip · Live Panel</div>
+    </div>
+    <div class="pf-card">
+      <div class="pf-icon">📅</div>
+      <div class="pf-name">Programme / Tentative</div>
+      <div class="pf-craft" style="color:var(--ochre)">Batik Theme</div>
+      <div class="pf-assets">Batik Discovery card · Timeline visual · Schedule</div>
+    </div>
+    <div class="pf-card">
+      <div class="pf-icon">👨‍🏫</div>
+      <div class="pf-name">Trainers</div>
+      <div class="pf-craft" style="color:var(--gold)">Songket Theme</div>
+      <div class="pf-assets">Songket Weave Lab card · Gold dividers · Profiles</div>
+    </div>
+    <div class="pf-card">
+      <div class="pf-icon">👥</div>
+      <div class="pf-name">Groups / Participants</div>
+      <div class="pf-craft" style="color:var(--teal)">Wau Theme</div>
+      <div class="pf-assets">Wau card · Participants' Corner · Group progress</div>
+    </div>
+    <div class="pf-card">
+      <div class="pf-icon">🧠</div>
+      <div class="pf-name">DT Journey</div>
+      <div class="pf-craft" style="color:var(--navy)">Minimal Icons</div>
+      <div class="pf-assets">DT Infographic · SMART DT App card · Guide steps</div>
+    </div>
+    <div class="pf-card">
+      <div class="pf-icon">🖼</div>
+      <div class="pf-name">Gallery Walk</div>
+      <div class="pf-craft" style="color:var(--orange)">Exhibition Style</div>
+      <div class="pf-assets">Gallery Walk card · Student showcases</div>
+    </div>
+    <div class="pf-card">
+      <div class="pf-icon">⚖️</div>
+      <div class="pf-name">Judges</div>
+      <div class="pf-craft" style="color:var(--maroon)">Ukiran + Gold</div>
+      <div class="pf-assets">Ukiran card · Judge Portal card · Rubric</div>
+    </div>
+    <div class="pf-card">
+      <div class="pf-icon">📡</div>
+      <div class="pf-name">Activity Updates</div>
+      <div class="pf-craft" style="color:var(--navy)">Modern Dashboard</div>
+      <div class="pf-assets">Live Updates panel · Dark navy craft thumbnails</div>
+    </div>
+    <div class="pf-card">
+      <div class="pf-icon">📚</div>
+      <div class="pf-name">Resources</div>
+      <div class="pf-craft" style="color:var(--sage)">Craft Library</div>
+      <div class="pf-assets">Resource cards · Category archive style</div>
+    </div>
+    <div class="pf-card">
+      <div class="pf-icon">🏨</div>
+      <div class="pf-name">Logistics</div>
+      <div class="pf-craft" style="color:var(--terracotta)">Kompleks Kraf</div>
+      <div class="pf-assets">Venue Showcase · KL Skyline divider · Map</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ WIREFRAMES ═══ -->
+<div class="page" id="wireframes">
+  <div class="pg-eye">Layout Blueprint</div>
+  <div class="pg-title">Landing Page Wireframe Blueprint</div>
+  <div class="pg-sub">Section-by-section layout plan for the main landing page showing asset placement positions and content hierarchy.</div>
+
+  <div class="g2">
+    <!-- Wireframe column -->
+    <div>
+      <div class="card">
+        <div class="card-title">Landing Page — Section Sequence</div>
+        <div style="display:grid;gap:8px">
+          <!-- Nav -->
+          <div><div class="wire wire-nav" style="border-radius:6px 6px 0 0">🔲 Sticky Navigation — Logo + Nav Links + Register CTA + Lang Toggle</div></div>
+          <!-- Hero -->
+          <div style="position:relative">
+            <div class="wire wire-hero" style="background:linear-gradient(135deg,rgba(8,27,68,.08),rgba(192,82,42,.08))">
+              <div>
+                <div class="wire-label">Asset 01 — Hero Banner 16:9</div>
+                <div style="font-size:11px;color:var(--muted);margin-top:5px">Left: Headline + tagline + CTA buttons<br/>Right: Kompleks Kraf KL venue visual + craft accents</div>
+              </div>
+            </div>
+          </div>
+          <!-- Live panel strip -->
+          <div class="wire wire-strip" style="background:rgba(8,27,68,.04)">⚡ Live Activity Ticker Strip — Asset 02 (4:5 side panel when expanded)</div>
+          <!-- Craft cards row -->
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px">
+            <div class="wire wire-card" style="font-size:10px;padding:8px">Asset 04<br/>Batik<br/>Discovery</div>
+            <div class="wire wire-card" style="font-size:10px;padding:8px">Asset 05<br/>Songket<br/>Weave Lab</div>
+            <div class="wire wire-card" style="font-size:10px;padding:8px">Asset 06<br/>Wau<br/>Innovation</div>
+            <div class="wire wire-card" style="font-size:10px;padding:8px">Asset 07<br/>Ukiran<br/>Heritage</div>
+          </div>
+          <!-- DT Journey strip -->
+          <div class="wire wire-strip" style="background:rgba(20,184,166,.05)">📊 Asset 16 — DT Journey Infographic Strip 16:4 — Empathise → Define → Ideate → Prototype → Pitch</div>
+          <!-- SDG strip -->
+          <div class="wire wire-strip" style="background:rgba(22,163,74,.04)">🌱 Asset 15 — SDG Impact Strip 16:5 — SDG 4 · SDG 11 · SDG 12</div>
+          <!-- Venue section -->
+          <div class="wire" style="height:110px;background:rgba(192,82,42,.05)">
+            <div><div class="wire-label">Asset 12 — Venue Showcase 16:9</div><div style="font-size:11px;color:var(--muted);margin-top:5px">Kompleks Kraf KL as destination + About text</div></div>
+          </div>
+          <!-- Explore Malaysia -->
+          <div class="wire" style="height:90px;background:rgba(201,146,42,.05)">
+            <div><div class="wire-label">Asset 13 — Explore Malaysia Through Craft 16:9</div><div style="font-size:11px;color:var(--muted);margin-top:5px">Tourism-grade craft showcase — Batik · Songket · Wau · Ukiran</div></div>
+          </div>
+          <!-- More craft cards row 2 -->
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px">
+            <div class="wire wire-card" style="font-size:10px;padding:8px">Asset 08<br/>Gallery<br/>Walk</div>
+            <div class="wire wire-card" style="font-size:10px;padding:8px">Asset 10<br/>SMART DT<br/>App</div>
+            <div class="wire wire-card" style="font-size:10px;padding:8px">Asset 09<br/>Judge<br/>Portal</div>
+            <div class="wire wire-card" style="font-size:10px;padding:8px">Asset 11<br/>Participants'<br/>Corner</div>
+          </div>
+          <!-- KL Skyline divider -->
+          <div class="wire wire-strip" style="background:rgba(8,27,68,.04)">🌆 Asset 14 — KL Heritage Skyline Divider 21:9</div>
+          <!-- Motif background note -->
+          <div class="wire wire-strip" style="background:rgba(201,146,42,.04)">🌸 Asset 03 — Batik/Songket Background Motif · applied as CSS overlay to specific sections</div>
+          <!-- Footer -->
+          <div class="wire wire-footer">📋 Footer — Contacts · Links · Registration CTA · JPPKK Credit</div>
+        </div>
+      </div>
+    </div>
+    <!-- Right column — content specs -->
+    <div>
+      <div class="card">
+        <div class="card-title">Section Content Specifications</div>
+        <div style="display:grid;gap:10px">
+          <div class="card-sm">
+            <div style="font-size:12px;font-weight:900;color:var(--navy);margin-bottom:5px">① Hero Section</div>
+            <div style="font-size:11.5px;color:var(--muted);line-height:1.65">Left panel: H1 headline + programme tagline + 2 CTA buttons (Register / Explore). Right panel: Asset 01 at 16:9 with transparent left fade. Overlay: Asset 03 motif at 6% opacity.</div>
+          </div>
+          <div class="card-sm">
+            <div style="font-size:12px;font-weight:900;color:var(--navy);margin-bottom:5px">② 4 Feature Craft Cards (row 1)</div>
+            <div style="font-size:11.5px;color:var(--muted);line-height:1.65">Assets 04–07 in a 4-column grid. Each card: 4:3 image top, title, short description, link/CTA. Hover: slight lift + border glow. Assign craft theme colour per card.</div>
+          </div>
+          <div class="card-sm">
+            <div style="font-size:12px;font-weight:900;color:var(--navy);margin-bottom:5px">③ DT Journey Strip</div>
+            <div style="font-size:11.5px;color:var(--muted);line-height:1.65">Asset 16 full-width at 16:4. Five phase nodes with icons, numbers, titles, descriptions. Background: cream. Accents: teal → orange → gold. Section heading: "Your Design Thinking Journey".</div>
+          </div>
+          <div class="card-sm">
+            <div style="font-size:12px;font-weight:900;color:var(--navy);margin-bottom:5px">④ SDG Alignment Strip</div>
+            <div style="font-size:11.5px;color:var(--muted);line-height:1.65">Asset 15 full-width at 16:5. Three SDG badges with descriptions. Section heading: "Aligned with the Global Sustainability Agenda".</div>
+          </div>
+          <div class="card-sm">
+            <div style="font-size:12px;font-weight:900;color:var(--navy);margin-bottom:5px">⑤ Venue Section</div>
+            <div style="font-size:11.5px;color:var(--muted);line-height:1.65">Asset 12 full-width at 16:9. Overlay: "Kompleks Kraf Kuala Lumpur — Heritage Village in the Heart of KL". Left-aligned text block over image. Warm terracotta/ochre tones.</div>
+          </div>
+          <div class="card-sm">
+            <div style="font-size:12px;font-weight:900;color:var(--navy);margin-bottom:5px">⑥ 4 Feature Craft Cards (row 2)</div>
+            <div style="font-size:11.5px;color:var(--muted);line-height:1.65">Assets 08–11. Same card grid pattern as row 1. Subtler presentation since these are secondary sections.</div>
+          </div>
+          <div class="card-sm">
+            <div style="font-size:12px;font-weight:900;color:var(--navy);margin-bottom:5px">⑦ KL Heritage Skyline Divider</div>
+            <div style="font-size:11.5px;color:var(--muted);line-height:1.65">Asset 14 at 21:9 as a full-bleed visual divider between sections. Petronas Twin Towers + KL Tower with subtle heritage floral linework at low opacity.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ ASSET MAP ═══ -->
+<div class="page" id="asset-map">
+  <div class="pg-eye">Implementation Reference</div>
+  <div class="pg-title">Asset Placement Map</div>
+  <div class="pg-sub">Exact file paths, HTML/CSS placement, and page assignments for all 16 assets.</div>
+
+  <div class="card">
+    <div class="card-title">Complete Asset → Page → Placement Map</div>
+    <div style="overflow-x:auto"><table class="bp-table">
+      <thead><tr><th>#</th><th>Asset Name</th><th>File Path</th><th>Ratio</th><th>Page</th><th>HTML Placement</th></tr></thead>
+      <tbody>
+        <tr><td>01</td><td><strong>Main Hero Banner</strong></td><td>assets/images/hero-main.jpg</td><td>16:9</td><td>index.html</td><td>hero section / CSS background-image</td></tr>
+        <tr><td>02</td><td><strong>Live Activity Panel</strong></td><td>assets/images/live-updates-panel.jpg</td><td>4:5</td><td>index.html</td><td>hero live widget card</td></tr>
+        <tr><td>03</td><td><strong>Batik/Songket Motif</strong></td><td>assets/motifs/batik-songket-bg.png</td><td>1:1 tile</td><td>All pages</td><td>CSS body/section background-image overlay</td></tr>
+        <tr><td>04</td><td><strong>Batik Discovery Card</strong></td><td>assets/images/card-batik-discovery.jpg</td><td>4:3</td><td>index.html / programme</td><td>feature-card img</td></tr>
+        <tr><td>05</td><td><strong>Songket Weave Lab Card</strong></td><td>assets/images/card-songket-weave.jpg</td><td>4:3</td><td>index.html / trainers</td><td>feature-card img</td></tr>
+        <tr><td>06</td><td><strong>Wau Innovation Studio Card</strong></td><td>assets/images/card-wau-innovation.jpg</td><td>4:3</td><td>index.html / groups</td><td>feature-card img</td></tr>
+        <tr><td>07</td><td><strong>Ukiran Heritage Stories Card</strong></td><td>assets/images/card-ukiran-heritage.jpg</td><td>4:3</td><td>index.html / judges</td><td>feature-card img</td></tr>
+        <tr><td>08</td><td><strong>Gallery Walk Card</strong></td><td>assets/images/card-gallery-walk.jpg</td><td>4:3</td><td>index.html / gallery</td><td>feature-card img</td></tr>
+        <tr><td>09</td><td><strong>Judge Portal Card</strong></td><td>assets/images/card-judge-portal.jpg</td><td>4:3</td><td>index.html / judges</td><td>feature-card img</td></tr>
+        <tr><td>10</td><td><strong>SMART DT App Card</strong></td><td>assets/images/card-smartdt-app.jpg</td><td>4:3</td><td>index.html / dt-journey</td><td>feature-card img</td></tr>
+        <tr><td>11</td><td><strong>Participants' Corner Card</strong></td><td>assets/images/card-participants-corner.jpg</td><td>4:3</td><td>index.html / participants</td><td>feature-card img</td></tr>
+        <tr><td>12</td><td><strong>Venue Showcase Section</strong></td><td>assets/images/venue-kompleks-kraf.jpg</td><td>16:9</td><td>logistics.html / index</td><td>full-width section block</td></tr>
+        <tr><td>13</td><td><strong>Explore Malaysia Through Craft</strong></td><td>assets/images/explore-malaysia-craft.jpg</td><td>16:9</td><td>index.html</td><td>tourism section block</td></tr>
+        <tr><td>14</td><td><strong>KL Heritage Skyline Divider</strong></td><td>assets/images/kl-heritage-skyline.jpg</td><td>21:9</td><td>Multiple pages</td><td>CSS section divider / page header strip</td></tr>
+        <tr><td>15</td><td><strong>SDG Impact Infographic</strong></td><td>assets/images/infographic-sdg-impact.jpg</td><td>16:5</td><td>index.html</td><td>impact section strip</td></tr>
+        <tr><td>16</td><td><strong>DT Journey Infographic</strong></td><td>assets/images/infographic-dt-journey.jpg</td><td>16:4</td><td>index.html / dt-journey</td><td>journey section strip</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</div>
+
+<!-- ═══ GENERATION ORDER ═══ -->
+<div class="page" id="generation-order">
+  <div class="pg-eye">Action Plan</div>
+  <div class="pg-title">Generation Order & Priority Queue</div>
+  <div class="pg-sub">14 assets to generate in 3 stages. 2 assets (Live Panel & Motif) are Stage 2–3 supporting assets. Stage 1 unlocks the landing page build.</div>
+
+  <div class="g3" style="margin-bottom:16px">
+    <div class="card" style="border-top:3px solid var(--terracotta)">
+      <div class="card-title" style="color:var(--terracotta)">Stage 1 — Generate First (5 assets)</div>
+      <div style="font-size:11.5px;color:var(--muted)">These unlock the above-the-fold landing page and 4 primary craft card sections.</div>
+      <div style="margin-top:10px;display:grid;gap:6px;font-size:12.5px">
+        <div style="display:flex;gap:8px"><span style="font-weight:900;color:var(--terracotta)">01</span> Main Hero Banner (16:9)</div>
+        <div style="display:flex;gap:8px"><span style="font-weight:900;color:var(--terracotta)">04</span> Batik Discovery Card</div>
+        <div style="display:flex;gap:8px"><span style="font-weight:900;color:var(--terracotta)">05</span> Songket Weave Lab Card</div>
+        <div style="display:flex;gap:8px"><span style="font-weight:900;color:var(--terracotta)">06</span> Wau Innovation Studio Card</div>
+        <div style="display:flex;gap:8px"><span style="font-weight:900;color:var(--terracotta)">07</span> Ukiran Heritage Stories Card</div>
+      </div>
+    </div>
+    <div class="card" style="border-top:3px solid var(--gold)">
+      <div class="card-title" style="color:var(--gold)">Stage 2 — Generate Second (7 assets)</div>
+      <div style="font-size:11.5px;color:var(--muted)">These complete the full landing page and unlock secondary section pages.</div>
+      <div style="margin-top:10px;display:grid;gap:6px;font-size:12.5px">
+        <div style="display:flex;gap:8px"><span style="font-weight:900;color:var(--gold)">16</span> DT Journey Infographic (16:4) ← HIGH</div>
+        <div style="display:flex;gap:8px"><span style="font-weight:900;color:var(--gold)">15</span> SDG Impact Infographic (16:5)</div>
+        <div style="display:flex;gap:8px"><span style="font-weight:900;color:var(--gold)">12</span> Venue Showcase Section (16:9) ← HIGH</div>
+        <div style="display:flex;gap:8px"><span style="font-weight:900;color:var(--gold)">08</span> Gallery Walk Card</div>
+        <div style="display:flex;gap:8px"><span style="font-weight:900;color:var(--gold)">10</span> SMART DT App Card ← HIGH</div>
+        <div style="display:flex;gap:8px"><span style="font-weight:900;color:var(--gold)">13</span> Explore Malaysia Through Craft</div>
+        <div style="display:flex;gap:8px"><span style="font-weight:900;color:var(--gold)">02</span> Live Activity Updates Panel</div>
+      </div>
+    </div>
+    <div class="card" style="border-top:3px solid var(--muted)">
+      <div class="card-title" style="color:var(--muted)">Stage 3 — Generate Third (4 assets)</div>
+      <div style="font-size:11.5px;color:var(--muted)">Final polish assets — section dividers, background motif, and remaining cards.</div>
+      <div style="margin-top:10px;display:grid;gap:6px;font-size:12.5px">
+        <div style="display:flex;gap:8px"><span style="font-weight:900;color:var(--muted)">09</span> Judge Portal Card</div>
+        <div style="display:flex;gap:8px"><span style="font-weight:900;color:var(--muted)">11</span> Participants' Corner Card</div>
+        <div style="display:flex;gap:8px"><span style="font-weight:900;color:var(--muted)">14</span> KL Heritage Skyline Divider (21:9)</div>
+        <div style="display:flex;gap:8px"><span style="font-weight:900;color:var(--muted)">03</span> Batik/Songket Background Motif (1:1)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Complete Priority Table</div>
+    <div style="overflow-x:auto"><table class="bp-table">
+      <thead><tr><th>Order</th><th>Asset Name</th><th>Category</th><th>Priority</th><th>Stage</th><th>Unlocks</th></tr></thead>
+      <tbody>
+        <tr><td><strong>1</strong></td><td>Main Hero Banner</td><td>Hero Visual</td><td><span class="priority-high">High</span></td><td class="stage-1">Stage 1</td><td>Landing page hero section</td></tr>
+        <tr><td><strong>2</strong></td><td>Batik Discovery Card</td><td>Craft Card</td><td><span class="priority-high">High</span></td><td class="stage-1">Stage 1</td><td>Landing page craft row 1</td></tr>
+        <tr><td><strong>3</strong></td><td>Songket Weave Lab Card</td><td>Craft Card</td><td><span class="priority-high">High</span></td><td class="stage-1">Stage 1</td><td>Landing page craft row 1</td></tr>
+        <tr><td><strong>4</strong></td><td>Wau Innovation Studio Card</td><td>Craft Card</td><td><span class="priority-high">High</span></td><td class="stage-1">Stage 1</td><td>Landing page craft row 1</td></tr>
+        <tr><td><strong>5</strong></td><td>Ukiran Heritage Stories Card</td><td>Craft Card</td><td><span class="priority-high">High</span></td><td class="stage-1">Stage 1</td><td>Landing page craft row 1</td></tr>
+        <tr><td><strong>6</strong></td><td>DT Journey Infographic</td><td>Infographic</td><td><span class="priority-high">High</span></td><td class="stage-2">Stage 2</td><td>DT Journey section + DT page</td></tr>
+        <tr><td><strong>7</strong></td><td>SDG Impact Infographic</td><td>Infographic</td><td><span class="priority-med">Medium</span></td><td class="stage-2">Stage 2</td><td>Impact/About section</td></tr>
+        <tr><td><strong>8</strong></td><td>Venue Showcase Section</td><td>Layout/Tourism</td><td><span class="priority-high">High</span></td><td class="stage-2">Stage 2</td><td>Venue/Logistics section</td></tr>
+        <tr><td><strong>9</strong></td><td>Gallery Walk Card</td><td>Craft Card</td><td><span class="priority-med">Medium</span></td><td class="stage-2">Stage 2</td><td>Landing page craft row 2</td></tr>
+        <tr><td><strong>10</strong></td><td>SMART DT App Card</td><td>Craft Card</td><td><span class="priority-high">High</span></td><td class="stage-2">Stage 2</td><td>Landing page craft row 2</td></tr>
+        <tr><td><strong>11</strong></td><td>Judge Portal Card</td><td>Craft Card</td><td><span class="priority-med">Medium</span></td><td class="stage-3">Stage 3</td><td>Judges section</td></tr>
+        <tr><td><strong>12</strong></td><td>Participants' Corner Card</td><td>Craft Card</td><td><span class="priority-med">Medium</span></td><td class="stage-3">Stage 3</td><td>Participants page</td></tr>
+        <tr><td><strong>13</strong></td><td>KL Heritage Skyline Divider</td><td>Layout/Tourism</td><td><span class="priority-med">Medium</span></td><td class="stage-3">Stage 3</td><td>Section dividers site-wide</td></tr>
+        <tr><td><strong>14</strong></td><td>Batik/Songket Background Motif</td><td>Hero Visual</td><td><span class="priority-med">Medium</span></td><td class="stage-3">Stage 3</td><td>Background overlay site-wide</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</div>
+
+<!-- ═══ GAP ANALYSIS ═══ -->
+<div class="page" id="gaps">
+  <div class="pg-eye">Professional Review</div>
+  <div class="pg-title">Gap Analysis & Recommendations</div>
+  <div class="pg-sub">Identified gaps between the current asset brief and a professional website outcome, with specific recommendations for each.</div>
+
+  <div class="card">
+    <div class="card-title">Critical Gaps</div>
+    <div class="gap-item"><div class="gap-bar gap-critical"></div><div><span class="gap-sev gs-crit">Critical</span><div class="gap-title">No mobile-responsive CSS system specified</div><div class="gap-desc">The asset brief specifies ratios and placements but contains no responsive breakpoint guidance. The 8 craft cards in a 4-column grid will break on mobile without a defined grid collapse strategy. The hero 16:9 banner will lose legibility below 480px without a separate mobile crop.</div><div class="gap-rec">→ Add CSS breakpoints: 4-col → 2-col (≤768px) → 1-col (≤480px). Specify separate hero crop at 4:5 for mobile using CSS art-direction on the <picture> element.</div></div></div>
+    <div class="gap-item"><div class="gap-bar gap-critical"></div><div><span class="gap-sev gs-crit">Critical</span><div class="gap-title">Venue visual correction not yet actioned</div><div class="gap-desc">The spreadsheet explicitly flags that previous generated visuals produced a futuristic glass building. The corrected prompt is written but no new asset has been generated. The entire landing page identity depends on this single hero image being correct.</div><div class="gap-rec">→ Asset 01 (hero-main.jpg) must be the very first generation using the corrected prompt in the spreadsheet. Test against the negative prompt checklist before proceeding to any other asset.</div></div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Major Gaps</div>
+    <div class="gap-item"><div class="gap-bar gap-major"></div><div><span class="gap-sev gs-major">Major</span><div class="gap-title">Missing: Explore Malaysia section (Asset 13) not in generation order</div><div class="gap-desc">The original generation order table in the spreadsheet lists only 14 assets but Asset 13 (Explore Malaysia Through Craft, 16:9) is placed at Stage 2 in the category table but omitted from the generation order table entirely. This tourism visual is crucial for the "Explore Malaysia" section.</div><div class="gap-rec">→ Insert Asset 13 between items 8 and 9 in the Stage 2 queue. It is a High priority asset that supports the cultural tourism positioning.</div></div></div>
+    <div class="gap-item"><div class="gap-bar gap-major"></div><div><span class="gap-sev gs-major">Major</span><div class="gap-title">No loading state / placeholder system defined</div><div class="gap-desc">All 16 assets are "To be generated" — meaning the website currently has no images at all. Without placeholder colours or skeleton loading states, the site will look broken during development and before assets are ready.</div><div class="gap-rec">→ Define CSS placeholder backgrounds using the heritage colour palette for each image slot. Use the assigned craft theme colour (e.g. batik card placeholder = terracotta gradient; songket card = gold-navy gradient) so the layout reads as intentional even before images load.</div></div></div>
+    <div class="gap-item"><div class="gap-bar gap-major"></div><div><span class="gap-sev gs-major">Major</span><div class="gap-title">Terracotta/Ochre CSS tokens missing from Smart DT system</div><div class="gap-desc">The updated colour palette includes --terracotta (#C0522A) and --ochre (#D4821A) derived from the venue's actual architecture, but these colours do not exist in the current Smart DT CSS token set (which uses only navy, teal, orange, yellow, muted). Without adding them, the heritage warmth of the new direction cannot be expressed in the UI components.</div><div class="gap-rec">→ Add --terracotta:#C0522A, --ochre:#D4821A, --maroon:#7A1530, --cream:#F5EDD8 to the CSS :root variables. Apply terracotta to the venue section accent, ochre to section eyebrow labels on heritage pages.</div></div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Suggestions & Enhancements</div>
+    <div class="gap-item"><div class="gap-bar gap-suggest"></div><div><span class="gap-sev gs-sugg">Suggestion</span><div class="gap-title">Add a "Heritage Craft Identifier" SVG icon set</div><div class="gap-desc">Currently all craft sections rely on generated photographs. An additional set of 5–6 vector SVG icons (batik canting, wau bulan silhouette, songket loom, ukiran motif, anyaman weave, kite tail) would provide scalable, always-available visual identifiers usable at any size — in navigation, section labels, and tooltips — without depending on generated assets loading.</div><div class="gap-rec">→ Create or source SVG icons in the cream + gold palette for each craft type. These become the universal visual language of the site independent of photo assets.</div></div></div>
+    <div class="gap-item"><div class="gap-bar gap-suggest"></div><div><span class="gap-sev gs-sugg">Suggestion</span><div class="gap-title">Add a hero headline tagline as overlaid text — not embedded in the image</div><div class="gap-desc">The hero prompt specifies "leave clean space on the left for website headline text." This means the headline and CTA buttons must be implemented as HTML/CSS overlay text — NOT embedded in the image. If the tagline is baked into the generated image, it cannot be changed or translated.</div><div class="gap-rec">→ Implement hero text as absolutely-positioned HTML over the image. Use: "Where traditional craft meets future innovation" as H1 in Poppins 900, white, with a 40% navy scrim behind it for legibility.</div></div></div>
+    <div class="gap-item"><div class="gap-bar gap-suggest"></div><div><span class="gap-sev gs-sugg">Suggestion</span><div class="gap-title">Specify WebP format with JPG fallback for all 16 assets</div><div class="gap-desc">All assets are currently specified as .jpg. Modern browsers support WebP which offers 25–35% smaller file sizes at equal visual quality — critical for the hero (16:9) and venue showcase (16:9) which will be large files.</div><div class="gap-rec">→ Generate final assets as JPG, then convert to WebP using Squoosh or ImageOptim. Use the HTML <picture> tag to serve WebP to supporting browsers with JPG fallback.</div></div></div>
+    <div class="gap-item"><div class="gap-bar gap-suggest"></div><div><span class="gap-sev gs-sugg">Suggestion</span><div class="gap-title">Missing: Open Graph / social preview asset</div><div class="gap-desc">No social sharing / OG image is defined in the asset brief. When the site is shared on WhatsApp, Telegram, or LinkedIn, it will show either nothing or a random image. Given this is a programme website being shared heavily through organiser Telegram groups, this is a visible gap.</div><div class="gap-rec">→ Add Asset 17: OG Social Preview Image at 1200×630px (close to 2:1). Repurpose the hero composition with the Camp 21 title, date and "Kompleks Kraf KL" text overlaid. Generate as a separate output.</div></div></div>
+  </div>
+</div>
+
+<!-- ═══ PROMPTS ═══ -->
+<div class="page" id="prompts">
+  <div class="pg-eye">Copy-Ready Generation Prompts</div>
+  <div class="pg-title">Ready-to-Use AI Generation Prompts</div>
+  <div class="pg-sub">All 5 Stage 1 prompts refined and ready to paste into Midjourney, Adobe Firefly, DALL-E, or any AI image generator.</div>
+
+  <div class="notice n-teal">💡 These prompts are taken directly from the asset brief and enhanced with the corrected venue direction and negative prompts. Paste the full prompt including the NEGATIVE PROMPT line.</div>
+
+  <div class="card">
+    <div class="card-title">Asset 01 — Main Hero Banner (16:9) · GENERATE FIRST</div>
+    <div style="background:rgba(8,27,68,.04);border:1px solid var(--border);border-radius:10px;padding:14px;font-size:12px;line-height:1.8;color:var(--ink);margin-bottom:10px">
+      Create a premium website hero banner for "Camp21: Synergising Literacies 2026". The scene must accurately reflect the real Kompleks Kraf Kuala Lumpur at Jalan Conlay, Kuala Lumpur. Show a traditional Malay-style craft complex entrance with steep red/brown tiled roofs, ochre/yellow painted facade, ornate carved wooden details, black-and-gold "Kompleks Kraf Kuala Lumpur" entrance signage, flagpoles with Malaysian flags, tropical garden landscaping including palm trees and flowering shrubs, and modern Kuala Lumpur high-rise buildings including Petronas Twin Towers visible in the distant background. In the foreground, add elegant Malaysian craft elements: batik floral motifs, songket-inspired gold geometric border along the bottom edge, a wau bulan kite in the upper right corner, and a close-up inset of artisan hands using a canting tool on white batik fabric. Use a refined deep navy, warm cream, songket gold, terracotta roof, teal and soft green colour palette. Warm golden hour daylight. The mood should be prestigious, welcoming, culturally rich, educational and internationally professional. Leave generous clean text space on the left third for website headline text and two CTA buttons. Style: high-end cultural tourism website hero, realistic venue-inspired editorial photography, polished, magazine quality.
+    </div>
+    <div style="background:rgba(192,82,42,.05);border:1px solid rgba(192,82,42,.2);border-radius:8px;padding:10px 12px;font-size:11.5px;color:var(--terracotta)"><strong>NEGATIVE PROMPT:</strong> futuristic glass building, glass curtain wall, luxury hotel, shopping mall, convention centre, generic modern museum, invented venue facade, glass tower, resort, cold blue neon lighting, empty sterile environment, cartoon, illustration, flat design, dark night scene only, Chinese architecture</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Asset 04 — Batik Discovery Card (4:3)</div>
+    <div style="background:rgba(8,27,68,.04);border:1px solid var(--border);border-radius:10px;padding:14px;font-size:12px;line-height:1.8;color:var(--ink);margin-bottom:8px">
+      Create a premium website feature card visual for "Batik Discovery". Close-up macro photography of artisan hands holding a traditional canting tool and drawing hot wax patterns on stretched white cotton fabric. Beautiful intricate floral batik motifs partially completed on the fabric in warm amber wax. Rich craft workshop textures including wax container, fabric folds and wooden frame. Warm directional lighting highlighting the wax texture. Colour palette: warm cream, amber wax, golden brown, terracotta, soft teal accent. Style: editorial, professional, magazine-quality web UI card image, Malaysian craft heritage, detailed, visually rich, suitable for a 4:3 rounded website card.
+    </div>
+    <div style="background:rgba(192,82,42,.05);border:1px solid rgba(192,82,42,.2);border-radius:8px;padding:10px 12px;font-size:11.5px;color:var(--terracotta)"><strong>NEGATIVE PROMPT:</strong> non-Malaysian motifs, Indian block printing, unclear tool, messy or dirty hands, factory setting, synthetic fabric, neon colours</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Asset 05 — Songket Weave Lab Card (4:3)</div>
+    <div style="background:rgba(8,27,68,.04);border:1px solid var(--border);border-radius:10px;padding:14px;font-size:12px;line-height:1.8;color:var(--ink);margin-bottom:8px">
+      Create a luxurious website feature card visual for "Songket Weave Lab". Show a close-up of rich Malaysian songket fabric with intricate metallic woven patterns in deep songket gold, royal navy blue and rich maroon tones. Include either a close-up detail of the raised metallic thread weaving pattern or a traditional wooden loom with gold thread in progress. The image should feel prestigious, historically significant and culturally opulent. Style: high-end luxury heritage web card, detailed textile photography, warm studio lighting, suitable for a 4:3 rounded website card.
+    </div>
+    <div style="background:rgba(192,82,42,.05);border:1px solid rgba(192,82,42,.2);border-radius:8px;padding:10px 12px;font-size:11.5px;color:var(--terracotta)"><strong>NEGATIVE PROMPT:</strong> Indian brocade, Thai silk, random generic textile, synthetic fabric, non-Malaysian weaving style, bright neon thread</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Asset 06 — Wau Innovation Studio Card (4:3)</div>
+    <div style="background:rgba(8,27,68,.04);border:1px solid var(--border);border-radius:10px;padding:14px;font-size:12px;line-height:1.8;color:var(--ink);margin-bottom:8px">
+      Create a vibrant website feature card visual for "Wau Innovation Studio". Show a beautifully decorated traditional Malaysian wau bulan kite — the iconic crescent-moon shaped kite — with intricate hand-painted floral and geometric decorative patterns in bold songket gold, terracotta red, teal and navy blue. The kite should appear artistic and inspiring against a clear blue sky with light tropical clouds, conveying creativity, youthful energy and cultural pride. Style: premium editorial web card visual, culturally rich, vivid, joyful, suitable for a 4:3 rounded website card.
+    </div>
+    <div style="background:rgba(192,82,42,.05);border:1px solid rgba(192,82,42,.2);border-radius:8px;padding:10px 12px;font-size:11.5px;color:var(--terracotta)"><strong>NEGATIVE PROMPT:</strong> Chinese kite, diamond kite, box kite, Western kite shape, cartoon style, flat illustration, overly simple pattern</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Asset 07 — Ukiran Heritage Stories Card (4:3)</div>
+    <div style="background:rgba(8,27,68,.04);border:1px solid var(--border);border-radius:10px;padding:14px;font-size:12px;line-height:1.8;color:var(--ink);margin-bottom:8px">
+      Create a premium website feature card visual for "Ukiran Heritage Stories". Close-up macro photography of exquisite traditional Malaysian wood carving with intricate awan larat cloud scrolls and floral patterns. Warm honey-brown to dark mahogany wood tones with deep carved relief shadows. Master craftsman's chisel partially visible indicating active creation. Warm directional side-lighting highlighting the three-dimensional carved texture. Style: editorial, museum-quality web card image, warm, detailed, culturally authentic, suitable for a 4:3 rounded website card.
+    </div>
+    <div style="background:rgba(192,82,42,.05);border:1px solid rgba(192,82,42,.2);border-radius:8px;padding:10px 12px;font-size:11.5px;color:var(--terracotta)"><strong>NEGATIVE PROMPT:</strong> Western wood carving, Japanese carpentry, generic wood texture, low relief, painted wood, artificial lighting, blurry, unclear pattern</div>
+  </div>
+</div>
+
+</div><!-- /main -->
+</div><!-- /layout -->
+
+<script>
+const LABELS = {overview:'Blueprint Summary',direction:'Design Direction',palette:'Colour & Typography','assets-hero':'Hero Visuals (3)','assets-craft':'Craft Cards (8)','assets-layout':'Layout / Tourism (3)','assets-infog':'Infographics (2)','page-flow':'Page Flow','wireframes':'Wireframe Blueprint','asset-map':'Asset Placement Map','generation-order':'Generation Order','gaps':'Gap Analysis','prompts':'Ready-to-Use Prompts'};
+
+function goTo(id, btn) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.sb-link').forEach(l => l.classList.remove('active'));
+  const el = document.getElementById(id);
+  if(el) el.classList.add('active');
+  if(btn) btn.classList.add('active');
+  document.getElementById('topbar-title').textContent = LABELS[id] || id;
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+</script>
+</body>
+</html>
