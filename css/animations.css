@@ -1,0 +1,1 @@
+@keyframes floatSoft{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}.hero-panel{animation:floatSoft 6s ease-in-out infinite}.step-card,.tool-card,.day-card,.role-card,.phase-card{transition:.2s}.step-card:hover,.tool-card:hover,.day-card:hover,.role-card:hover,.phase-card:hover{transform:translateY(-5px)}
