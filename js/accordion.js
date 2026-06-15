@@ -1,0 +1,1 @@
+document.addEventListener('DOMContentLoaded',()=>{document.querySelectorAll('.accordion-trigger').forEach(t=>t.addEventListener('click',()=>{const i=t.closest('.accordion-item');if(i)i.classList.toggle('open')}));});
