@@ -1,0 +1,15 @@
+CAMP21 2026 — Locked Colour Palette Update
+
+This update fully applies the approved Camp21 palette across the website system while keeping the existing assets and typography reference.
+
+Palette roles:
+- Deep Indigo #20103E: main background, header, footer, dark sections.
+- Royal Purple #5A36C9: DT Journey, phase 01, system emphasis, active states.
+- Orchid Pink #F05AA6: CTA, section tags, urgent highlights, creative energy.
+- Batik Gold #D9AF37: borders, numbers, heritage accents, official action buttons.
+- Soft Lavender #B39DDB: cards, chips, secondary surfaces, support states.
+- Warm Cream #F8F2EA: page background, readable content surfaces.
+- Charcoal Ink #2B2733: body text and light-section headings.
+- Heritage Olive #807B1D: Test phase, legacy, validation and SDG/impact accents.
+
+No assets were renamed or redesigned. CSS was enhanced so the current assets sit inside the approved palette system.

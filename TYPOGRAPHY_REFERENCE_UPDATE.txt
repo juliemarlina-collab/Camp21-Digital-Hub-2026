@@ -1,0 +1,10 @@
+Camp21 Typography Reference Update
+
+This version keeps the attached indigo-purple-gold design direction and updates the font system to match the provided references:
+
+- Display / hero serif: Cormorant Garamond
+- Interface / navigation / body: Poppins
+- Assets were not renamed or redesigned.
+- SMART DT App link retained: https://smart-dt-project.netlify.app/welcome.html
+
+Upload the contents of this folder to the GitHub repo root.

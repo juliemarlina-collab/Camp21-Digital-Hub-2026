@@ -1,0 +1,8 @@
+Camp21 2026 Final Website Update Validation
+
+HTML files: 16
+Local references checked: 451
+Broken local references: 0
+
+Broken references:
+None
