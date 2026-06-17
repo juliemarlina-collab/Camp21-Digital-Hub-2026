@@ -1,23 +1,15 @@
-CAMP21 Homepage V1
+CAMP21 Homepage Redesign V2
 
-Folder structure expected:
-assets/images/
-  home-hero-kompleks-kraf-ai-culture.webp
-  home-card-ai-heritage.webp
-  home-card-pitching-challenge.webp
-  home-card-kompleks-kraf-architecture.webp
-  home-card-cultural-craft.webp
-  home-card-students-collaboration.webp
+Replace these files in your GitHub repository:
+- index.html
+- css/style.css
+- js/script.js
 
-assets/icons/
-  icon-training-team.png
-  icon-progress-dashboard.png
-  icon-pitching.png
-  icon-resources.png
-  dt-empathise.png
-  dt-define.png
-  dt-ideate.png
-  dt-prototype.png
-  dt-test.png
+Important fixes included:
+- index.html now correctly links to css/style.css and js/script.js
+- Premium Bento Heritage Dashboard layout
+- Stronger Web3-inspired visual depth without NFT/game language
+- Larger hero, floating badges, command stats, dashboard cards
+- Mobile responsive layout
 
-Replace href="#" in index.html with the real Smart DT App, Judge Portal, and resource links when ready.
+Keep your existing assets folder.
