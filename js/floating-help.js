@@ -1,1 +1,1 @@
-document.addEventListener('DOMContentLoaded',()=>{const t=document.querySelector('.help-toggle'),p=document.querySelector('.help-panel');if(t&&p)t.onclick=()=>p.classList.toggle('open')});
+document.querySelectorAll('.help-toggle').forEach(btn=>btn.addEventListener('click',()=>document.querySelector('.help-panel')?.classList.toggle('open')));
