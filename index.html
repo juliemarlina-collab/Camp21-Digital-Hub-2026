@@ -4,141 +4,364 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CAMP21: Synergising Literacies 2026</title>
-  <meta name="description" content="CAMP21: Synergising Literacies 2026 - Premium Bento Heritage Dashboard for AI-Powered Design Thinking and Sustainable Cultural Heritage." />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600;1,700&display=swap" rel="stylesheet" />
+  <style>
+    :root{
+      --ink:#11133f;
+      --navy:#14104a;
+      --indigo:#24156f;
+      --rose:#e23c74;
+      --gold:#c8952c;
+      --gold-soft:#f3dfae;
+      --cream:#fff8ef;
+      --parchment:#f2e7d3;
+      --white:#fff;
+      --muted:#666481;
+      --line:rgba(20,16,74,.12);
+      --shadow:0 22px 70px rgba(20,16,74,.16);
+      --sans:'Plus Jakarta Sans',system-ui,sans-serif;
+      --serif:'Cormorant Garamond',Georgia,serif;
+      --ease:cubic-bezier(.16,1,.3,1);
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:var(--sans);background:var(--cream);color:var(--ink);line-height:1.65;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+    img{max-width:100%;display:block}
+    a{text-decoration:none;color:inherit}
+    .wrap{width:min(100% - 44px,1180px);margin-inline:auto}
+    .skip-link{position:absolute;left:-999px;top:auto;width:1px;height:1px;overflow:hidden}
+    .skip-link:focus{left:1rem;top:1rem;width:auto;height:auto;background:#fff;padding:.7rem 1rem;border-radius:999px;z-index:9999}
+
+    /* Header */
+    .site-header{position:sticky;top:0;z-index:50;background:rgba(255,248,239,.88);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
+    .nav{height:76px;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+    .brand{display:flex;align-items:center;gap:.8rem;min-width:0}
+    .brand img{width:46px;height:46px;object-fit:contain;border-radius:50%;background:#fff;box-shadow:0 8px 22px rgba(20,16,74,.08)}
+    .brand-title{font-weight:900;font-size:1.08rem;letter-spacing:.055em;color:var(--navy);line-height:1;text-transform:uppercase}
+    .brand-title span{color:var(--rose)}
+    .nav-links{display:flex;align-items:center;gap:.35rem}
+    .nav-links a{font-size:.84rem;font-weight:800;color:var(--muted);padding:.52rem .88rem;border-radius:999px;transition:.25s ease}
+    .nav-links a:hover{background:var(--parchment);color:var(--navy)}
+    .nav-cta{background:var(--navy)!important;color:#fff!important;box-shadow:0 10px 24px rgba(20,16,74,.15)}
+    .menu-btn{display:none;border:0;background:var(--navy);color:#fff;width:42px;height:42px;border-radius:999px;font-size:1.1rem;cursor:pointer}
+
+    /* Hero */
+    .hero{position:relative;isolation:isolate;padding:5.2rem 0 3.6rem;overflow:hidden}
+    .hero:before{content:"";position:absolute;inset:0;z-index:-2;background:radial-gradient(circle at 85% 10%,rgba(226,60,116,.12),transparent 28%),radial-gradient(circle at 15% 80%,rgba(200,149,44,.18),transparent 30%)}
+    .hero:after{content:"";position:absolute;right:-120px;top:-140px;width:440px;height:440px;background:url('assets/decor/songket-pattern.png') center/cover no-repeat;opacity:.06;z-index:-1;transform:rotate(8deg)}
+    .hero-grid{display:grid;grid-template-columns:1.02fr .98fr;gap:3rem;align-items:center}
+    .kicker{display:inline-flex;align-items:center;gap:.55rem;width:max-content;font-size:.72rem;font-weight:900;letter-spacing:.16em;text-transform:uppercase;color:var(--rose);background:#fff;border:1px solid var(--line);border-radius:999px;padding:.48rem .86rem;box-shadow:0 10px 30px rgba(20,16,74,.06)}
+    .kicker:before{content:"";width:8px;height:8px;border-radius:50%;background:var(--gold)}
+    h1{font-family:var(--serif);font-size:clamp(3.1rem,7vw,6rem);line-height:.88;letter-spacing:-.035em;color:var(--navy);margin:1.25rem 0 1rem}
+    h1 em{display:block;color:var(--rose);font-style:italic;font-weight:700}
+    .lead{max-width:54ch;font-size:1.04rem;color:var(--muted);font-weight:500}
+    .hero-actions{display:flex;flex-wrap:wrap;gap:.8rem;margin:1.7rem 0 1.4rem}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:.45rem;border-radius:999px;padding:.88rem 1.35rem;font-weight:900;font-size:.92rem;transition:.3s var(--ease)}
+    .btn-primary{background:var(--rose);color:#fff;box-shadow:0 14px 34px rgba(226,60,116,.26)}
+    .btn-primary:hover{transform:translateY(-2px);background:var(--navy)}
+    .btn-ghost{background:#fff;color:var(--navy);border:1px solid var(--line)}
+    .btn-ghost:hover{transform:translateY(-2px);border-color:rgba(20,16,74,.28)}
+    .mini-facts{display:flex;flex-wrap:wrap;gap:.55rem;margin-top:1.2rem}
+    .mini-fact{display:inline-flex;align-items:center;gap:.45rem;background:rgba(255,255,255,.75);border:1px solid var(--line);border-radius:999px;padding:.48rem .78rem;font-size:.82rem;font-weight:800;color:var(--navy)}
+    .mini-fact span{color:var(--gold)}
+    .hero-photo{position:relative}
+    .photo-card{position:relative;border-radius:36px;overflow:hidden;background:var(--parchment);box-shadow:var(--shadow);aspect-ratio:4/3.15;border:1px solid rgba(255,255,255,.65)}
+    .photo-card img{width:100%;height:100%;object-fit:cover}
+    .photo-card:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(20,16,74,.25))}
+    .wau{position:absolute;right:-18px;top:-28px;width:118px;filter:drop-shadow(0 12px 20px rgba(20,16,74,.14))}
+    .hero-badge{position:absolute;left:-18px;bottom:-18px;background:var(--navy);color:#fff;border:5px solid var(--cream);border-radius:24px;padding:1rem 1.15rem;box-shadow:0 18px 45px rgba(20,16,74,.25)}
+    .hero-badge strong{display:block;font-family:var(--serif);font-size:2.2rem;line-height:1;color:var(--gold-soft)}
+    .hero-badge small{display:block;margin-top:.18rem;font-size:.66rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.62)}
+
+    /* Shared */
+    section{padding:3.8rem 0}
+    .section-head{display:flex;align-items:end;justify-content:space-between;gap:1.5rem;margin-bottom:1.5rem}
+    .eyebrow{font-size:.72rem;font-weight:900;letter-spacing:.16em;text-transform:uppercase;color:var(--rose);margin-bottom:.35rem}
+    h2{font-family:var(--serif);font-size:clamp(2rem,4.2vw,3.4rem);line-height:1;color:var(--navy);letter-spacing:-.025em}
+    .section-note{max-width:45ch;color:var(--muted);font-size:.96rem}
+    .soft-link{font-weight:900;color:var(--rose);white-space:nowrap}
+
+    /* Quick facts */
+    .facts{padding-top:2.2rem}
+    .facts-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.9rem}
+    .fact-card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:1.25rem;box-shadow:0 14px 40px rgba(20,16,74,.06)}
+    .fact-card img{width:34px;height:34px;object-fit:contain;margin-bottom:.85rem}
+    .fact-card strong{display:block;font-size:.97rem;color:var(--navy);line-height:1.25}
+    .fact-card span{display:block;margin-top:.28rem;color:var(--muted);font-size:.84rem;font-weight:600}
+
+    /* Portals */
+    .portals{background:var(--navy);color:#fff;position:relative;overflow:hidden;isolation:isolate}
+    .portals:before{content:"";position:absolute;left:-70px;bottom:-110px;width:380px;height:380px;background:url('assets/decor/batik-corner-gold.png') center/contain no-repeat;opacity:.08;z-index:-1}
+    .portals .eyebrow{color:var(--gold-soft)}
+    .portals h2{color:#fff}
+    .portals .section-note{color:rgba(255,255,255,.56)}
+    .portal-grid{display:grid;grid-template-columns:1.18fr 1fr 1fr;grid-template-rows:1fr 1fr;gap:.95rem}
+    .portal-card{min-height:230px;position:relative;overflow:hidden;border-radius:26px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);padding:1.25rem;display:flex;flex-direction:column;justify-content:flex-end;transition:.3s var(--ease)}
+    .portal-card:hover{transform:translateY(-4px);background:rgba(255,255,255,.11)}
+    .portal-card.featured{min-height:310px;grid-row:1/3}
+    .portal-card img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.32;z-index:0}
+    .portal-card:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 20%,rgba(8,7,32,.9));z-index:1}
+    .portal-content{position:relative;z-index:2}
+    .portal-icon{width:46px;height:46px;object-fit:contain;margin-bottom:1rem;border-radius:14px;background:rgba(255,255,255,.08);padding:.3rem}
+    .portal-card h3{font-size:1.1rem;margin-bottom:.25rem}
+    .portal-card.featured h3{font-family:var(--serif);font-size:2rem;line-height:1}
+    .portal-card p{color:rgba(255,255,255,.62);font-size:.84rem;line-height:1.5;margin-bottom:.85rem}
+    .portal-card span{font-weight:900;color:var(--gold-soft);font-size:.82rem}
+
+    /* Programme preview */
+    .programme{background:linear-gradient(180deg,var(--cream),#fff)}
+    .days{display:grid;grid-template-columns:repeat(4,1fr);gap:.8rem}
+    .day{background:#fff;border:1px solid var(--line);border-radius:22px;padding:1.2rem;position:relative;overflow:hidden;min-height:175px;box-shadow:0 12px 34px rgba(20,16,74,.055)}
+    .day:after{content:attr(data-day);position:absolute;right:.7rem;bottom:-.28em;font-family:var(--serif);font-size:6.6rem;line-height:1;font-weight:700;color:rgba(20,16,74,.055)}
+    .day small{display:inline-flex;background:var(--parchment);color:var(--gold);border-radius:999px;padding:.28rem .65rem;font-size:.66rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.9rem}
+    .day h3{position:relative;z-index:1;color:var(--navy);font-size:1rem;line-height:1.3;margin-bottom:.45rem}
+    .day p{position:relative;z-index:1;color:var(--muted);font-size:.84rem;line-height:1.55}
+
+    /* Closing strip */
+    .closing{padding:3.5rem 0;background:var(--parchment)}
+    .closing-card{display:grid;grid-template-columns:1fr auto;gap:1.5rem;align-items:center;background:var(--white);border:1px solid var(--line);border-radius:30px;padding:1.6rem;box-shadow:0 16px 44px rgba(20,16,74,.07)}
+    .closing h2{font-size:clamp(1.75rem,3.2vw,2.7rem)}
+    .closing p{color:var(--muted);max-width:58ch;margin-top:.45rem}
+
+    /* Footer */
+    footer{background:#0d0a2d;color:#fff;padding:2.3rem 0}
+    .footer-inner{display:flex;align-items:center;justify-content:space-between;gap:1.2rem;flex-wrap:wrap}
+    .footer-brand{font-weight:900;letter-spacing:.05em;text-transform:uppercase}
+    .footer-brand span{color:var(--rose)}
+    .footer-meta{color:rgba(255,255,255,.48);font-size:.82rem}
+    .footer-links{display:flex;gap:1rem;flex-wrap:wrap}
+    .footer-links a{color:rgba(255,255,255,.66);font-size:.82rem;font-weight:800}
+    .footer-links a:hover{color:var(--gold-soft)}
+
+    .reveal{opacity:0;transform:translateY(18px);transition:opacity .65s var(--ease),transform .65s var(--ease)}
+    .reveal.show{opacity:1;transform:none}
+    @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+
+    @media (max-width:980px){
+      .hero-grid{grid-template-columns:1fr;gap:2rem}.hero-photo{max-width:680px}.facts-grid,.days{grid-template-columns:repeat(2,1fr)}.portal-grid{grid-template-columns:1fr 1fr}.portal-card.featured{grid-column:1/-1;grid-row:auto;min-height:270px}.closing-card{grid-template-columns:1fr}
+    }
+    @media (max-width:760px){
+      .nav-links{position:fixed;inset:76px 18px auto 18px;background:#fff;border:1px solid var(--line);border-radius:24px;padding:.8rem;box-shadow:var(--shadow);display:none;flex-direction:column;align-items:stretch}.nav-links.open{display:flex}.nav-links a{width:100%}.menu-btn{display:block}.nav-cta{display:none!important}.hero{padding-top:3.3rem}.facts-grid,.portal-grid,.days{grid-template-columns:1fr}.section-head{align-items:flex-start;flex-direction:column}.footer-inner{align-items:flex-start;flex-direction:column}h1{font-size:clamp(3rem,16vw,4.5rem)}.wau{width:88px;right:-6px;top:-18px}.hero-badge{left:10px;bottom:10px;border-width:3px}.photo-card{border-radius:28px}
+    }
+  </style>
 </head>
 <body>
-  <div class="site-noise" aria-hidden="true"></div>
-  <div class="orb orb-one" aria-hidden="true"></div>
-  <div class="orb orb-two" aria-hidden="true"></div>
+  <a class="skip-link" href="#main">Skip to content</a>
 
-  <header class="site-header" id="top">
-    <div class="header-shell">
-      <a href="#top" class="brand" aria-label="CAMP21 Home">
-        <div class="brand-mark">C21</div>
-        <div class="brand-text"><strong>CAMP21</strong><span>Synergising Literacies 2026</span></div>
+  <header class="site-header">
+    <div class="wrap nav">
+      <a class="brand" href="index.html" aria-label="CAMP21 home">
+        <img src="assets/logos/logo-camp21.png" alt="CAMP21 logo" />
+        <div class="brand-text">
+          <div class="brand-title">CAMP<span>21</span></div>
+        </div>
       </a>
-      <nav class="nav" id="mainNav" aria-label="Main navigation">
-        <a href="#about">About</a><a href="#tentative">Tentative</a><a href="#participant">Participants</a><a href="#journey">DT Journey</a><a href="#sdg">SDG Impact</a><a href="#progress">Progress</a><a href="#pitching">Pitching</a><a href="#team">Trainers</a><a href="#resources">Resources</a>
+      <nav class="nav-links" id="navLinks" aria-label="Main navigation">
+        <a href="#portals">Portals</a>
+        <a href="#programme">Programme</a>
+        <a href="pages/contacts.html">Help</a>
+        <a href="pages/registration.html" class="nav-cta">Register</a>
       </nav>
-      <div class="header-actions">
-        <a href="#smartdt" class="btn btn-small btn-ghost">Smart DT App</a>
-        <a href="#judge" class="btn btn-small btn-gold">Judge Portal</a>
-        <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
-      </div>
+      <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">☰</button>
     </div>
   </header>
 
-  <section class="logo-strip" aria-label="CAMP21 organiser and collaborator logos">
-    <div class="container logo-row">
-      <div class="logo-card"><img src="assets/logos/camp21-logo.png" alt="CAMP21 logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span>CAMP21</span></div>
-      <div class="logo-card"><img src="assets/logos/jppkk-logo.png" alt="JPPKK logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span>JPPKK</span></div>
-      <div class="logo-card"><img src="assets/logos/polimetro-kl-logo.png" alt="Politeknik METrO Kuala Lumpur logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span>PMKL</span></div>
-      <div class="logo-card"><img src="assets/logos/kompleks-kraf-logo.png" alt="Kompleks Kraf Kuala Lumpur logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span>Kompleks Kraf KL</span></div>
-    </div>
-  </section>
-
-  <main>
-    <section class="hero section-pad">
-      <div class="container hero-bento">
-        <article class="hero-copy bento-card hero-panel">
-          <div class="floating-chip chip-top">AI Empowerment</div>
-          <p class="eyebrow">Premium Programme Delivery Hub</p>
-          <h1>CAMP21:<br><span>Synergising Literacies 2026</span></h1>
-          <p class="tagline">Inspired by Culture • Driven by Ideas</p>
-          <p class="hero-desc">A future-ready cultural innovation experience where Malaysian heritage, Design Thinking, AI and SDG impact meet inside one smart delivery hub.</p>
-          <div class="hero-buttons"><a href="#tentative" class="btn btn-gold">View Tentative</a><a href="#smartdt" class="btn btn-light">Open Smart DT App</a><a href="#progress" class="btn btn-ghost">Track Progress</a></div>
-        </article>
-        <article class="hero-visual bento-card image-card">
-          <img src="assets/images/home-hero-kompleks-kraf-ai-culture.png" alt="Kompleks Kraf Kuala Lumpur, Malaysian culture and future AI visual for CAMP21" />
-          <div class="visual-badge badge-left">Kompleks Kraf KL</div><div class="visual-badge badge-right">AI + Heritage</div>
-        </article>
-        <article class="mini-card bento-card stat-date"><span class="mini-label">Date</span><strong>13–16 July</strong><small>2026</small></article>
-        <article class="mini-card bento-card stat-venue"><span class="mini-label">Venue</span><strong>Kompleks Kraf</strong><small>Kuala Lumpur</small></article>
-        <article class="mini-card bento-card stat-theme"><span class="mini-label">Theme</span><strong>AI • DT • SDG</strong><small>Sustainable Cultural Heritage</small></article>
-        <article class="mini-card bento-card stat-app" id="smartdt"><span class="mini-label">Digital Hub</span><strong>Smart DT App</strong><small>Tasks • Evidence • Progress</small></article>
-      </div>
-    </section>
-
-    <section class="command-strip"><div class="container command-grid"><div><strong>20</strong><span>Target Groups</span></div><div><strong>5</strong><span>DT Phases</span></div><div><strong>10</strong><span>Assisted Trainers</span></div><div><strong>SDG</strong><span>4 • 11 • 12</span></div><div><strong>AI</strong><span>Empowered Learning</span></div></div></section>
-
-    <section id="about" class="section-pad compact"><div class="container about-bento"><article class="section-intro bento-card editorial-card"><p class="eyebrow">About CAMP21</p><h2>Modern literacy, cultural intelligence and AI-powered innovation.</h2><p>CAMP21 2026 is designed as a high-impact learning experience that blends English communication, cultural heritage exploration, Design Thinking, AI empowerment and sustainable development goals.</p></article><article class="bento-card image-card culture-card"><img src="assets/images/home-card-ai-heritage.png" alt="AI and Malaysian cultural heritage visual" /></article><article class="bento-card micro-feature"><span>01</span><h3>Culture</h3><p>Explore heritage, craft, identity and local stories.</p></article><article class="bento-card micro-feature gold-feature"><span>02</span><h3>Innovation</h3><p>Turn insights into creative AI-supported solutions.</p></article></div></section>
-
-
-    <section id="participant" class="section-pad compact participant-section">
-      <div class="container">
-        <div class="section-head center">
-          <p class="eyebrow">Participant Journey</p>
-          <h2>From arrival to final pitching.</h2>
-          <p>Participants move through a guided journey: explore heritage, complete Smart DT App tasks, receive trainer feedback and prepare an AI-powered cultural heritage pitch.</p>
+  <main id="main">
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div class="hero-copy reveal">
+          <div class="kicker">AI-Powered Design Thinking</div>
+          <h1>CAMP21:<em>Synergising</em>Literacies 2026</h1>
+          <p class="lead">A national creative experience where Politeknik Malaysia students explore Malaysian craft heritage, use AI with purpose, and design meaningful solutions at Kompleks Kraf Kuala Lumpur.</p>
+          <div class="hero-actions">
+            <a href="pages/registration.html" class="btn btn-primary">Register now →</a>
+            <a href="https://smart-dt-project.netlify.app/welcome.html" target="_blank" rel="noopener" class="btn btn-ghost">Open Smart DT App ↗</a>
+          </div>
+          <div class="mini-facts" aria-label="Event quick facts">
+            <div class="mini-fact"><span>📅</span>13–16 July 2026</div>
+            <div class="mini-fact"><span>📍</span>Kompleks Kraf KL</div>
+            <div class="mini-fact"><span>🏆</span>10 Teams</div>
+          </div>
         </div>
-        <div class="participant-bento">
-          <article class="journey-card bento-card"><span>01</span><h3>Register & Join Group</h3><p>Attend briefing, confirm group members and understand programme expectations.</p></article>
-          <article class="journey-card bento-card"><span>02</span><h3>Explore Heritage</h3><p>Observe craft, motifs, artisans and cultural problems during heritage immersion.</p></article>
-          <article class="journey-card bento-card"><span>03</span><h3>Complete Smart DT Tasks</h3><p>Submit DT evidence, reflections, templates and group progress in Smart DT App.</p></article>
-          <article class="journey-card bento-card"><span>04</span><h3>Check Feedback</h3><p>Review trainer notes, pending tasks and readiness for the next DT phase.</p></article>
-          <article class="journey-card bento-card"><span>05</span><h3>Prepare Pitch</h3><p>Develop a 7–8 slide AI-driven solution pitch for cultural heritage preservation.</p></article>
-          <article class="journey-card bento-card"><span>06</span><h3>Present & Reflect</h3><p>Pitch to judges, answer Q&A and reflect on communication, creativity and impact.</p></article>
+        <div class="hero-photo reveal" style="transition-delay:.08s">
+          <img class="wau" src="assets/decor/wau-bulan.png" alt="" aria-hidden="true" />
+          <div class="photo-card">
+            <img src="assets/images/hero-kompleks-kraf.png" alt="Kompleks Kraf Kuala Lumpur with Malaysian heritage craft atmosphere" />
+          </div>
+          <div class="hero-badge" aria-hidden="true"><strong>4</strong><small>Days</small></div>
         </div>
       </div>
     </section>
 
-
-    <section class="section-pad compact"><div class="container"><div class="section-head center"><p class="eyebrow">Programme Shortcuts</p><h2>Everything participants, trainers and judges need.</h2></div><div class="shortcut-bento"><a class="shortcut-card bento-card large-shortcut" href="#progress"><img src="assets/icons/icon-progress-dashboard.png" alt="Progress dashboard icon"><div><span>Live Monitoring</span><h3>Progress Dashboard</h3><p>Group completion, pending tasks and judging readiness.</p></div></a><a class="shortcut-card bento-card" href="#team"><img src="assets/icons/icon-training-team.png" alt="Training team icon"><div><span>Trainers</span><h3>Training Team</h3></div></a><a class="shortcut-card bento-card" href="#pitching"><img src="assets/icons/icon-pitching.png" alt="Pitching icon"><div><span>Final Task</span><h3>Pitching Challenge</h3></div></a><a class="shortcut-card bento-card" href="#resources"><img src="assets/icons/icon-resources.png" alt="Resources icon"><div><span>Downloads</span><h3>Resources</h3></div></a></div></div></section>
-
-    <section id="tentative" class="section-pad compact dark-slab"><div class="container"><div class="section-head"><p class="eyebrow">Tentative Snapshot</p><h2>Programme flow by day.</h2></div><div class="timeline-grid"><article class="timeline-card bento-card"><span>12 July</span><h3>Arrival</h3><p>Participants, lecturers, facilitators and speakers arrive at respective accommodation.</p></article><article class="timeline-card bento-card"><span>13 July</span><h3>Heritage Immersion</h3><p>Briefing, craft gallery tour, artisan interview, Empathise and Define.</p></article><article class="timeline-card bento-card"><span>14 July</span><h3>Ideate</h3><p>Motif exploration, idea development, mind mapping and concept sketching.</p></article><article class="timeline-card bento-card"><span>15 July</span><h3>Prototype</h3><p>Prototype workshop, pitch preparation, storytelling and rehearsal.</p></article><article class="timeline-card bento-card"><span>16 July</span><h3>Pitching</h3><p>Evaluation session, panel feedback, prize giving and closing ceremony.</p></article></div></div></section>
-
-    <section id="journey" class="section-pad compact"><div class="container"><div class="section-head center"><p class="eyebrow">CAMP21 Design Thinking Journey</p><h2>Five official DT phases from cultural insight to AI-powered impact.</h2><p>Each phase is guided by appointed lead and assisted trainers, supported by Smart DT App task submissions and evidence monitoring.</p></div><div class="dt-grid"><article class="dt-card bento-card"><img src="assets/icons/dt-empathise.png" alt="Empathise icon"><span>01</span><h3>Empathise</h3><p>Understand users, culture, artisans and community needs.</p></article><article class="dt-card bento-card"><img src="assets/icons/dt-define.png" alt="Define icon"><span>02</span><h3>Define</h3><p>Clarify challenges and frame meaningful problem statements.</p></article><article class="dt-card bento-card"><img src="assets/icons/dt-ideate.png" alt="Ideate icon"><span>03</span><h3>Ideate</h3><p>Generate AI-supported creative ideas inspired by heritage.</p></article><article class="dt-card bento-card"><img src="assets/icons/dt-prototype.png" alt="Prototype icon"><span>04</span><h3>Prototype</h3><p>Build models, visuals, concepts or digital solutions.</p></article><article class="dt-card bento-card"><img src="assets/icons/dt-test.png" alt="Test icon"><span>05</span><h3>Test</h3><p>Collect feedback, improve ideas and prepare for pitching.</p></article></div></div></section>
-
-
-    <section id="sdg" class="section-pad compact sdg-section">
-      <div class="container sdg-bento">
-        <article class="section-intro bento-card editorial-card">
-          <p class="eyebrow">SDG Impact</p>
-          <h2>CAMP21 connects learning, heritage and sustainability.</h2>
-          <p>The programme integrates Design Thinking, AI, cultural heritage preservation and sustainable development awareness through SDG 4, SDG 11 and SDG 12.</p>
+    <section class="facts" aria-label="Key event information">
+      <div class="wrap facts-grid reveal">
+        <article class="fact-card">
+          <img src="assets/icons/icon-date.png" alt="" aria-hidden="true" />
+          <strong>13–16 July 2026</strong>
+          <span>Four-day national programme</span>
         </article>
-        <article class="sdg-card bento-card"><span>SDG 4</span><h3>Quality Education</h3><p>Strengthens future-ready literacies, English communication, AI awareness and collaborative learning.</p></article>
-        <article class="sdg-card bento-card"><span>SDG 11</span><h3>Sustainable Cities & Communities</h3><p>Encourages responsible preservation and innovation for cultural heritage and local identity.</p></article>
-        <article class="sdg-card bento-card"><span>SDG 12</span><h3>Responsible Consumption</h3><p>Promotes sustainable craft thinking, eco-friendly materials and responsible cultural production.</p></article>
+        <article class="fact-card">
+          <img src="assets/icons/icon-location.png" alt="" aria-hidden="true" />
+          <strong>Kompleks Kraf KL</strong>
+          <span>Jalan Conlay, Kuala Lumpur</span>
+        </article>
+        <article class="fact-card">
+          <img src="assets/icons/icon-groups.png" alt="" aria-hidden="true" />
+          <strong>10 Teams</strong>
+          <span>Politeknik Malaysia participants</span>
+        </article>
+        <article class="fact-card">
+          <img src="assets/icons/icon-dt-journey.png" alt="" aria-hidden="true" />
+          <strong>Design Thinking</strong>
+          <span>Empathy to final pitch</span>
+        </article>
       </div>
     </section>
 
-
-    <section id="progress" class="section-pad compact progress-section"><div class="container progress-bento"><article class="section-intro bento-card progress-copy"><p class="eyebrow">Smart DT App Progress</p><h2>Task completion notice, group progress and judging readiness.</h2><p>This dashboard preview is designed to connect later with Smart DT App / Google Sheets progress data, so organisers can quickly identify completed, pending and review-required groups.</p><a href="#smartdt" class="btn btn-gold">Open Smart DT App</a></article><article class="dashboard bento-card"><div class="dash-topline"><span>Live Progress Preview</span><strong>Updated Today</strong></div><div class="dash-stats"><div><strong id="totalGroups">20</strong><span>Total Groups</span></div><div><strong id="completedTasks">68%</strong><span>Tasks Completed</span></div><div><strong id="readyGroups">4</strong><span>Ready for Judging</span></div></div><div class="notice" id="completionNotice"><h3>Completion Notice</h3><p>Loading task completion notices...</p></div><div class="progress-bars" id="phaseBars"></div></article><article class="bento-card support-card"><span>Needs Review</span><strong>5</strong><p>Prototype submissions require trainer feedback.</p></article><article class="bento-card support-card gold-card"><span>Pending</span><strong>3</strong><p>Groups have not completed Define tasks.</p></article></div></section>
-
-    <section id="pitching" class="section-pad compact"><div class="container pitch-bento"><article class="bento-card image-card pitch-image"><img src="assets/images/home-card-pitching-challenge.png" alt="Students presenting an AI cultural heritage solution to judges" /></article><article class="feature-copy bento-card"><p class="eyebrow">Pitching Challenge</p><h2>AI-driven solution for cultural heritage preservation.</h2><p>Teams will present a 10-minute pitch followed by 5-minute Q&A, demonstrating how AI and Design Thinking can support SDG 11 and cultural heritage preservation.</p><div class="pitch-pills"><span>4 members</span><span>10 min pitch</span><span>5 min Q&A</span><span>7–8 slides</span></div><a href="#judge" class="btn btn-light">View Judge Portal</a></article></div></section>
-
-    <section id="team" class="section-pad compact dark-slab"><div class="container"><div class="section-head center"><p class="eyebrow">Training & Facilitation</p><h2>Each DT phase is led, conducted and monitored.</h2></div><div class="team-grid"><article class="team-card bento-card"><span>AI</span><h3>AI Input</h3><p>Delivered by appointed speaker / trainer.</p></article><article class="team-card bento-card"><span>Pitch</span><h3>Pitching Input</h3><p>Delivered by appointed speaker / trainer.</p></article><article class="team-card bento-card"><span>Lead</span><h3>DT Phase Leads</h3><p>Each phase: 1 lead trainer + 2 assisted trainers.</p></article><article class="team-card bento-card"><span>10</span><h3>Assisted Trainers</h3><p>Support group activity, task completion and monitoring.</p></article></div></div></section>
-
-
-    <section id="participant-guide" class="section-pad compact participant-guide-section">
-      <div class="container guide-bento">
-        <article class="section-intro bento-card editorial-card">
-          <p class="eyebrow">Participant Guide</p>
-          <h2>Quick essentials before the programme starts.</h2>
-          <p>This section gives participants the practical information they need: items to bring, attire, submission flow and support channels.</p>
-        </article>
-        <article class="guide-card bento-card"><img src="assets/icons/icon-what-to-bring.png" alt="What to bring icon"><h3>What to Bring</h3><p>Laptop/tablet, stationery, extension socket, mobile data, medicine and personal essentials.</p></article>
-        <article class="guide-card bento-card"><img src="assets/icons/icon-attire.png" alt="Attire icon"><h3>Attire</h3><p>Workshop: smart casual. Closing ceremony: Batik. Bring outerwear for night activity.</p></article>
-        <article class="guide-card bento-card"><img src="assets/icons/icon-smart-dt-submission.png" alt="Smart DT submission icon"><h3>Smart DT Submission</h3><p>Use Smart DT App to submit tasks, upload evidence and check group progress.</p></article>
-        <article class="guide-card bento-card"><img src="assets/icons/icon-trainer-support.png" alt="Trainer support icon"><h3>Trainer Support</h3><p>Refer to lead trainers, assisted trainers or secretariat for support during DT phases.</p></article>
+    <section class="portals" id="portals">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div>
+            <div class="eyebrow">Access portals</div>
+            <h2>Choose your role</h2>
+          </div>
+          <p class="section-note">The homepage stays simple. Each role has its own dedicated page for the details, tools, and updates.</p>
+        </div>
+        <div class="portal-grid">
+          <a href="pages/participants.html" class="portal-card featured reveal">
+            <img class="bg" src="assets/images/participants-corner.png" alt="" aria-hidden="true" />
+            <div class="portal-content">
+              <img class="portal-icon" src="assets/icons/icon-participants.png" alt="" aria-hidden="true" />
+              <h3>Participants</h3>
+              <p>Open the Smart DT guide, templates, resources, and team tasks.</p>
+              <span>Enter participant hub →</span>
+            </div>
+          </a>
+          <a href="pages/trainers.html" class="portal-card reveal" style="transition-delay:.05s">
+            <img class="bg" src="assets/images/trainer-support.png" alt="" aria-hidden="true" />
+            <div class="portal-content">
+              <img class="portal-icon" src="assets/icons/icon-trainers.png" alt="" aria-hidden="true" />
+              <h3>Trainers</h3>
+              <p>Lead phase inputs, briefings, and learning direction.</p>
+              <span>Open trainer view →</span>
+            </div>
+          </a>
+          <a href="pages/facilitators.html" class="portal-card reveal" style="transition-delay:.1s">
+            <img class="bg" src="assets/images/trainer-support.png" alt="" aria-hidden="true" />
+            <div class="portal-content">
+              <img class="portal-icon" src="assets/icons/icon-groups.png" alt="" aria-hidden="true" />
+              <h3>Facilitators</h3>
+              <p>Assist teams on-site, guide checkpoints, and support smooth movement.</p>
+              <span>Open facilitator view →</span>
+            </div>
+          </a>
+          <a href="pages/organiser.html" class="portal-card reveal" style="transition-delay:.15s">
+            <img class="bg" src="assets/images/venue-kompleks-kraf.png" alt="" aria-hidden="true" />
+            <div class="portal-content">
+              <img class="portal-icon" src="assets/icons/icon-programme.png" alt="" aria-hidden="true" />
+              <h3>Organisers</h3>
+              <p>Manage updates, logistics, and secretariat coordination.</p>
+              <span>Open centre →</span>
+            </div>
+          </a>
+          <a href="pages/judges.html" class="portal-card reveal" style="transition-delay:.2s">
+            <img class="bg" src="assets/images/judging-panel.png" alt="" aria-hidden="true" />
+            <div class="portal-content">
+              <img class="portal-icon" src="assets/icons/icon-judges.png" alt="" aria-hidden="true" />
+              <h3>Judges</h3>
+              <p>Access rubrics and scoring panel.</p>
+              <span>Score panel →</span>
+            </div>
+          </a>
+        </div>
       </div>
     </section>
 
+    <section class="programme" id="programme">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div>
+            <div class="eyebrow">Programme preview</div>
+            <h2>4 days, one clear journey</h2>
+          </div>
+          <a href="pages/programme.html" class="soft-link">View full schedule →</a>
+        </div>
+        <div class="days">
+          <article class="day reveal" data-day="1">
+            <small>Day 1 · 13 Jul</small>
+            <h3>Empathise &amp; Define</h3>
+            <p>AI orientation, heritage immersion, and problem framing.</p>
+          </article>
+          <article class="day reveal" style="transition-delay:.05s" data-day="2">
+            <small>Day 2 · 14 Jul</small>
+            <h3>Ideate &amp; Build</h3>
+            <p>Idea generation and rapid craft-inspired prototyping.</p>
+          </article>
+          <article class="day reveal" style="transition-delay:.1s" data-day="3">
+            <small>Day 3 · 15 Jul</small>
+            <h3>Test &amp; Refine</h3>
+            <p>Feedback, iteration, and pitch preparation.</p>
+          </article>
+          <article class="day reveal" style="transition-delay:.15s" data-day="4">
+            <small>Day 4 · 16 Jul</small>
+            <h3>Pitch &amp; Impact</h3>
+            <p>Final presentation, judging, and closing celebration.</p>
+          </article>
+        </div>
+      </div>
+    </section>
 
-    <section id="resources" class="section-pad compact"><div class="container resources-bento"><article class="section-intro bento-card editorial-card"><p class="eyebrow">Resources</p><h2>Important links and downloadable materials.</h2><p>Keep programme documents, templates, rubric and participant guides in one easy place.</p></article><article class="resource-list bento-card"><a href="#">Programme Booklet</a><a href="#">Tentative Schedule</a><a href="#">DT Templates</a><a href="#">AI Prompt Guide</a><a href="#">Pitching Rubric</a><a href="#">Submission Checklist</a></article></div></section>
-
-    <section class="section-pad compact gallery-preview"><div class="container gallery-bento"><article class="bento-card image-card big-gallery"><img src="assets/images/home-card-students-collaboration.png" alt="Students collaborating with AI robot and cultural heritage prototype"></article><article class="bento-card image-card"><img src="assets/images/home-card-kompleks-kraf-architecture.png" alt="Kompleks Kraf Kuala Lumpur architecture"></article><article class="bento-card image-card"><img src="assets/images/home-card-cultural-craft.png" alt="Malaysian cultural craft materials"></article></div></section>
-
-    <section class="cta-band"><div class="container cta-content bento-card"><div><p class="eyebrow">Ready to begin?</p><h2>Access the CAMP21 delivery tools.</h2></div><div class="cta-buttons"><a href="#" class="btn btn-gold">Open Smart DT App</a><a href="#" id="judge" class="btn btn-light">Enter Judge Portal</a></div></div></section>
+    <section class="closing">
+      <div class="wrap closing-card reveal">
+        <div>
+          <div class="eyebrow">Start here</div>
+          <h2>Ready for CAMP21?</h2>
+          <p>Register, check your role portal, and use the Smart DT App as your main guide throughout the programme.</p>
+        </div>
+        <a href="pages/registration.html" class="btn btn-primary">Register now →</a>
+      </div>
+    </section>
   </main>
 
-  <footer class="site-footer"><div class="container footer-grid"><div><div class="footer-brand">CAMP21</div><p>Synergising Literacies 2026</p><p>Inspired by Culture • Driven by Ideas</p></div><div><h3>Quick Links</h3><a href="#about">About</a><a href="#tentative">Tentative</a><a href="#participant">Participants</a><a href="#journey">DT Journey</a><a href="#sdg">SDG Impact</a><a href="#progress">Progress</a></div><div><h3>Programme</h3><a href="#pitching">Pitching Challenge</a><a href="#team">Training Team</a><a href="#resources">Resources</a><a href="#smartdt">Smart DT App</a></div><div><h3>Organisers</h3><p>Bahagian Kurikulum, JPPKK</p><p>Politeknik METrO Kuala Lumpur</p><p>Kompleks Kraf Kuala Lumpur</p></div></div><div class="footer-bottom">© 2026 CAMP21: Synergising Literacies 2026. All rights reserved.</div></footer>
+  <footer>
+    <div class="wrap footer-inner">
+      <div>
+        <div class="footer-brand">CAMP<span>21</span></div>
+        <div class="footer-meta">13–16 July 2026 · Kompleks Kraf Kuala Lumpur</div>
+      </div>
+      <div class="footer-links">
+        <a href="pages/programme.html">Programme</a>
+        <a href="pages/resources.html">Resources</a>
+        <a href="pages/contacts.html">Help</a>
+        <a href="https://smart-dt-project.netlify.app/welcome.html" target="_blank" rel="noopener">Smart DT App</a>
+      </div>
+    </div>
+  </footer>
 
-  <script src="js/script.js"></script>
+  <script>
+    const menuBtn = document.getElementById('menuBtn');
+    const navLinks = document.getElementById('navLinks');
+    menuBtn.addEventListener('click', () => {
+      const open = navLinks.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded', String(open));
+      menuBtn.textContent = open ? '×' : '☰';
+    });
+    navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      menuBtn.setAttribute('aria-expanded', 'false');
+      menuBtn.textContent = '☰';
+    }));
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {threshold:.08, rootMargin:'0px 0px -40px 0px'});
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
 </body>
 </html>
